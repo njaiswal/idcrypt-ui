@@ -1,0 +1,81 @@
+<div class="row" *ngIf="didFail">
+  <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+    <div class="alert alert-danger">{{failureMessage !== null ? failureMessage : 'Something went wrong'}}, please try again!</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <form class="text-center form-signup" (ngSubmit)="onSubmit()" #usrForm="ngForm">
+
+      <i class="fas fa-user-plus"></i>
+      <h1 class="h3 mb-3 font-weight-normal">User Registration</h1>
+
+      <div class="form-group">
+        <label
+          for="username"
+          class="sr-only">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          ngModel
+          placeholder="Username"
+          class="form-control"
+          required>
+      </div>
+      <div class="form-group">
+        <label
+          for="email"
+          class="sr-only">Mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          ngModel
+          placeholder="Email address"
+          class="form-control"
+          required
+          email>
+      </div>
+      <div class="form-group">
+        <label
+          for="password"
+          class="sr-only">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          ngModel
+          class="form-control"
+          required>
+      </div>
+      <div class="form-group">
+        <label
+          for="confirmPassword"
+          class="sr-only">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          ngModel
+          class="form-control"
+          required>
+      </div>
+      <div class="form-group">
+        <re-captcha
+          size="normal"
+          ngModel
+          name="captcha"
+          required
+        ></re-captcha>
+      </div>
+        <div *ngIf="usrForm.value.password !== usrForm.value.confirmPassword" class="font-italic">Passwords do not match!</div>
+      <button class="btn btn-primary" type="submit"
+              [disabled]="(usrForm.value.password !== usrForm.value.confirmPassword) || usrForm.invalid">Submit
+      </button>
+    </form>
+  </div>
+</div>
+
