@@ -27,23 +27,17 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li *ngIf="!isAuthenticated" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item"
+      <li *ngIf="!signedIn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item"
           (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
         <a class="nav-link" routerLink="/login">Sign In</a>
       </li>
-      <li *ngIf="!isAuthenticated" class="nav-item" ngbDropdown>
-        <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="signupDropdown" role="button">
-          Sign Up
-        </a>
-        <div ngbDropdownMenu aria-labelledby="signupDropdown" class="dropdown-menu dropdown-menu-right"
-             routerLinkActive="active" [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
-          <a ngbDropdownItem routerLink="/signup" (click)="(isCollapsed = !isCollapsed) && $event.preventDefault()">Registration</a>
-          <a ngbDropdownItem routerLink="/validate" (click)="(isCollapsed = !isCollapsed) && $event.preventDefault()">Validation</a>
-        </div>
+      <li *ngIf="signedIn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item"
+          (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
+        <a class="nav-link" routerLink="/settings">{{user.username}}</a>
       </li>
-      <li *ngIf="isAuthenticated" routerLinkActive="active" class="nav-item"
+      <li *ngIf="signedIn" routerLinkActive="active" class="nav-item"
           [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
-        <a (click)="(isCollapsed = !isCollapsed) && onLogout()" class="nav-link" style="cursor: pointer;">Logout</a>
+        <a (click)="onLogout()" class="nav-link" style="cursor: pointer;">Logout</a>
       </li>
     </ul>
   </div>

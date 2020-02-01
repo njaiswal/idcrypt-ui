@@ -7,14 +7,14 @@ import {FormsModule} from '@angular/forms';
 import {SidebarComponent} from './page-content/sidebar/sidebar.component';
 import {HomeComponent} from './page-content/home/home.component';
 import {SigninComponent} from './user/signin/signin.component';
-import {SignupComponent} from './user/signup/signup.component';
 import {AuthService} from './user/auth.service';
 import {LoggingService} from './shared/logging.service';
 import {LoaderService} from './shared/loader.service';
 import {PageContentComponent} from './page-content/page-content.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings} from 'ng-recaptcha';
-import {ValidateComponent} from './user/validate/validate.component';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+
 
 @NgModule({
   declarations: [
@@ -22,9 +22,7 @@ import {ValidateComponent} from './user/validate/validate.component';
     SidebarComponent,
     HomeComponent,
     SigninComponent,
-    SignupComponent,
     PageContentComponent,
-    ValidateComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +30,10 @@ import {ValidateComponent} from './user/validate/validate.component';
     FormsModule,
     NgbModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    AmplifyAngularModule
   ],
-  providers: [AuthService, LoggingService, LoaderService, {
+  providers: [AuthService, LoggingService, LoaderService, AmplifyService, {
     provide: RECAPTCHA_SETTINGS,
     useValue: {
       siteKey: '6Lckr9QUAAAAAO57BPwtRAzSFKnFNU9OiEgvccPP',

@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-idcrypt-ui-dev-211436-authRole",
+            "UnauthRoleArn": "arn:aws:iam::758837945329:role/amplify-idcrypt-ui-dev-211436-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::758837945329:role/amplify-idcrypt-ui-dev-211436-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-idcrypt-ui-dev-211436-deployment",
+            "UnauthRoleName": "amplify-idcrypt-ui-dev-211436-unauthRole",
+            "StackName": "amplify-idcrypt-ui-dev-211436",
+            "StackId": "arn:aws:cloudformation:eu-west-1:758837945329:stack/amplify-idcrypt-ui-dev-211436/b0be8a30-446e-11ea-bf72-06c001d97fde",
+            "AmplifyAppId": "dl62f4i0p53ab"
+        }
+    }
+}

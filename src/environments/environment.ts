@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  amplify: {
+    Auth: {
+      identityPoolId: 'eu-west-1:727dc0ba-fd1b-4591-b036-8c7f5f0a3c9b',
+      region: 'eu-west-1',
+      userPoolId: 'eu-west-1_3kdq57Va6',
+      userPoolWebClientId: '4g6sdqsqs3o3tr6828i1lmrjce'
+    }
+  }
 };
 
 /*
