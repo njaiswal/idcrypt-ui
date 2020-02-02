@@ -20,7 +20,9 @@
                 }
             },
             "auth": {
-                "idcryptuifaaa3a9e": {}
+                "idcryptuifaaa3a9e": {
+                    "hostedUIProviderCreds": "[]"
+                }
             }
         }
     }

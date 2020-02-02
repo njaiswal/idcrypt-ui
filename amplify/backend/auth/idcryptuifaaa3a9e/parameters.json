@@ -12,11 +12,16 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "Your IDCrypt verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [],
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers",
+        "Requires Symbols"
+    ],
     "requiredAttributes": [
         "email"
     ],
@@ -44,11 +49,11 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
         "email"
     ],
-    "triggers": "{\"DefineAuthChallenge\":[\"captcha-define-challenge\"],\"CreateAuthChallenge\":[\"captcha-create-challenge\"],\"VerifyAuthChallengeResponse\":[\"captcha-verify\"]}",
+    "triggers": "{\"CreateAuthChallenge\":[\"captcha-create-challenge\"],\"DefineAuthChallenge\":[\"captcha-define-challenge\"],\"VerifyAuthChallengeResponse\":[\"captcha-verify\"]}",
     "userPoolGroupList": [],
     "parentStack": {
         "Ref": "AWS::StackId"
@@ -82,5 +87,13 @@
                 "Name"
             ]
         }
-    ]
+    ],
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "hostedUI": true,
+    "hostedUIDomainName": "idcryptui270c03d6-270c03d6",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.idcrypt.io/\"],\"LogoutURLs\":[\"https://dev.idcrypt.io/login/\"]}"
 }

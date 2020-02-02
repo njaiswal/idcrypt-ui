@@ -7,8 +7,10 @@
     "functionName": "idcryptuifaaa3a9eVerifyAuthChallengeResponse",
     "parentStack": "auth",
     "triggerEnvs": "[]",
-    "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+    "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/VerifyAuthChallengeResponse",
     "roleName": "idcryptuifaaa3a9eVerifyAuthChallengeResponse",
+    "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+    "triggerEventPath": "VerifyAuthChallengeResponse.event.json",
     "skipEdit": true,
     "resourceName": "idcryptuifaaa3a9eVerifyAuthChallengeResponse"
 }

@@ -7,8 +7,10 @@
     "functionName": "idcryptuifaaa3a9eCreateAuthChallenge",
     "parentStack": "auth",
     "triggerEnvs": "[]",
-    "triggerTemplate": "CreateAuthChallenge.json.ejs",
+    "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/CreateAuthChallenge",
     "roleName": "idcryptuifaaa3a9eCreateAuthChallenge",
+    "triggerTemplate": "CreateAuthChallenge.json.ejs",
+    "triggerEventPath": "CreateAuthChallenge.event.json",
     "skipEdit": true,
     "resourceName": "idcryptuifaaa3a9eCreateAuthChallenge"
 }

@@ -1,61 +1,61 @@
 {
-	"function": {
-		"idcryptuifaaa3a9eDefineAuthChallenge": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"idcryptuifaaa3a9eCreateAuthChallenge": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		},
-		"idcryptuifaaa3a9eVerifyAuthChallengeResponse": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true
-		}
-	},
-	"auth": {
-		"idcryptuifaaa3a9e": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "idcryptuifaaa3a9eDefineAuthChallenge",
-					"triggerProvider": "Cognito",
-					"attributes": [
-						"Arn",
-						"Name"
-					]
-				},
-				{
-					"category": "function",
-					"resourceName": "idcryptuifaaa3a9eCreateAuthChallenge",
-					"triggerProvider": "Cognito",
-					"attributes": [
-						"Arn",
-						"Name"
-					]
-				},
-				{
-					"category": "function",
-					"resourceName": "idcryptuifaaa3a9eVerifyAuthChallengeResponse",
-					"triggerProvider": "Cognito",
-					"attributes": [
-						"Arn",
-						"Name"
-					]
-				}
-			],
-			"customAuth": true
-		}
-	},
-	"storage": {
-		"idcryptUI": {
-			"service": "S3",
-			"providerPlugin": "awscloudformation"
-		}
-	}
+    "function": {
+        "idcryptuifaaa3a9eDefineAuthChallenge": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        },
+        "idcryptuifaaa3a9eCreateAuthChallenge": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        },
+        "idcryptuifaaa3a9eVerifyAuthChallengeResponse": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
+        }
+    },
+    "auth": {
+        "idcryptuifaaa3a9e": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "idcryptuifaaa3a9eDefineAuthChallenge",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "idcryptuifaaa3a9eCreateAuthChallenge",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "idcryptuifaaa3a9eVerifyAuthChallengeResponse",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ],
+            "customAuth": true
+        }
+    },
+    "storage": {
+        "idcryptUI": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation"
+        }
+    }
 }
