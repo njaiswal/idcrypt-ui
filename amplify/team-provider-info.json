@@ -13,14 +13,19 @@
         },
         "categories": {
             "function": {
-                "idcryptuifaaa3a9eDefineAuthChallenge": {},
-                "idcryptuifaaa3a9eCreateAuthChallenge": {},
-                "idcryptuifaaa3a9eVerifyAuthChallengeResponse": {
+                "idcryptUICreateAuthChallenge": {},
+                "idcryptUICustomMessage": {
+                    "REDIRECTURL": "https://dev.idcrypt.io/",
+                    "EMAILSUBJECT": "Your IDCrypt registration confirmation link",
+                    "EMAILMESSAGE": "Please click link to confirm your IDCrypt user registration."
+                },
+                "idcryptUIDefineAuthChallenge": {},
+                "idcryptUIVerifyAuthChallengeResponse": {
                     "RECAPTCHASECRET": "6Lckr9QUAAAAAK5fnHTQLLEuyXpbcPVUMo4jBXiD"
                 }
             },
             "auth": {
-                "idcryptuifaaa3a9e": {
+                "idcryptUI": {
                     "hostedUIProviderCreds": "[]"
                 }
             }

@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "captcha-verify"
+    ],
+    "parentResource": "idcryptUI",
+    "functionName": "idcryptUIVerifyAuthChallengeResponse",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+    "roleName": "idcryptUIVerifyAuthChallengeResponse",
+    "skipEdit": true,
+    "resourceName": "idcryptUIVerifyAuthChallengeResponse"
+}

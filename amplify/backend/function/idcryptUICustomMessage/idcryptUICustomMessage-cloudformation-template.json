@@ -2,7 +2,15 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
-		"CHALLENGEANSWER": {
+		"REDIRECTURL": {
+			"Type": "String",
+			"Default": ""
+		},
+		"EMAILMESSAGE": {
+			"Type": "String",
+			"Default": ""
+		},
+		"EMAILSUBJECT": {
 			"Type": "String",
 			"Default": ""
 		},
@@ -61,12 +69,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"idcryptuifaaa3a9eCreateAuthChallenge",
+						"idcryptUICustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"idcryptuifaaa3a9eCreateAuthChallenge",
+									"idcryptUICustomMessage",
 									"-",
 									{
 										"Ref": "env"
@@ -87,8 +95,17 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"CHALLENGEANSWER": {
-							"Ref": "CHALLENGEANSWER"
+						"REDIRECTURL": {
+							"Ref": "REDIRECTURL"
+						},
+						"EMAILSUBJECT": {
+							"Ref": "EMAILSUBJECT"
+						},
+						"EMAILMESSAGE": {
+							"Ref": "EMAILMESSAGE"
+						},
+						"RESOURCENAME": {
+							"Ref": "resourceName"
 						}
 					}
 				},
@@ -102,7 +119,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-idcryptui-dev-184514-deployment",
-					"S3Key": "amplify-builds/idcryptuifaaa3a9eCreateAuthChallenge-6835666f55737a536c52-build.zip"
+					"S3Key": "amplify-builds/idcryptUICustomMessage-48465045734a68715576-build.zip"
 				}
 			}
 		},
@@ -112,12 +129,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"idcryptuifaaa3a9eCreateAuthChallenge",
+						"idcryptUICustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"idcryptuifaaa3a9eCreateAuthChallenge",
+									"idcryptUICustomMessage",
 									"-",
 									{
 										"Ref": "env"

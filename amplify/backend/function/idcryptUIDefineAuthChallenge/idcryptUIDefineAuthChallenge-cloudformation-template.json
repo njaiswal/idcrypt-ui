@@ -57,12 +57,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"idcryptuifaaa3a9eDefineAuthChallenge",
+						"idcryptUIDefineAuthChallenge",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"idcryptuifaaa3a9eDefineAuthChallenge",
+									"idcryptUIDefineAuthChallenge",
 									"-",
 									{
 										"Ref": "env"
@@ -95,7 +95,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-idcryptui-dev-184514-deployment",
-					"S3Key": "amplify-builds/idcryptuifaaa3a9eDefineAuthChallenge-6b5855624b5a49475446-build.zip"
+					"S3Key": "amplify-builds/idcryptUIDefineAuthChallenge-6f4d624a792b39515968-build.zip"
 				}
 			}
 		},
@@ -105,12 +105,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"idcryptuifaaa3a9eDefineAuthChallenge",
+						"idcryptUIDefineAuthChallenge",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"idcryptuifaaa3a9eDefineAuthChallenge",
+									"idcryptUIDefineAuthChallenge",
 									"-",
 									{
 										"Ref": "env"

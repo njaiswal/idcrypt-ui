@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "idcryptuifaaa3a9e_identitypool_faaa3a9e",
+    "identityPoolName": "idcryptUiIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "idcrypfaaa3a9e",
-    "userPoolName": "idcryptuifaaa3a9e_userpool_faaa3a9e",
+    "resourceNameTruncated": "idcryp1bb232cd",
+    "userPoolName": "idcryptUiUserPool",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -12,9 +12,9 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your IDCrypt verification code",
+    "emailVerificationSubject": "You IDCrypt verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
         "Requires Lowercase",
@@ -33,10 +33,25 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "idcrypfaaa3a9e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "idcryp1bb232cd_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "idcryptuifaaa3a9e",
+    "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "idcryptUI",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+        "email"
+    ],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{\"CreateAuthChallenge\":[\"captcha-create-challenge\"],\"CustomMessage\":[\"verification-link\"],\"DefineAuthChallenge\":[\"captcha-define-challenge\"],\"VerifyAuthChallengeResponse\":[\"captcha-verify\"]}",
+    "hostedUI": true,
+    "hostedUIDomainName": "dev-idcrypt",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.idcrypt.io/\"],\"LogoutURLs\":[\"https://dev.idcrypt.io/login/\"]}",
+    "userPoolGroupList": [],
+    "verificationBucketName": "idcryptuiverificationbucket",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -49,12 +64,6 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
-    "usernameAttributes": [
-        "email"
-    ],
-    "triggers": "{\"CreateAuthChallenge\":[\"captcha-create-challenge\"],\"DefineAuthChallenge\":[\"captcha-define-challenge\"],\"VerifyAuthChallengeResponse\":[\"captcha-verify\"]}",
-    "userPoolGroupList": [],
     "parentStack": {
         "Ref": "AWS::StackId"
     },
@@ -62,7 +71,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "idcryptuifaaa3a9eDefineAuthChallenge",
+            "resourceName": "idcryptUICreateAuthChallenge",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -71,7 +80,7 @@
         },
         {
             "category": "function",
-            "resourceName": "idcryptuifaaa3a9eCreateAuthChallenge",
+            "resourceName": "idcryptUICustomMessage",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -80,20 +89,21 @@
         },
         {
             "category": "function",
-            "resourceName": "idcryptuifaaa3a9eVerifyAuthChallengeResponse",
+            "resourceName": "idcryptUIDefineAuthChallenge",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "idcryptUIVerifyAuthChallengeResponse",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
                 "Name"
             ]
         }
-    ],
-    "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "hostedUI": true,
-    "hostedUIDomainName": "idcryptui270c03d6-270c03d6",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.idcrypt.io/\"],\"LogoutURLs\":[\"https://dev.idcrypt.io/login/\"]}"
+    ]
 }
