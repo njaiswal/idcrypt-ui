@@ -10,7 +10,7 @@ import {LoggingService} from '../../shared/logging.service';
 })
 export class SigninComponent implements OnInit {
   @ViewChild('usrForm', {static: true}) form: NgForm;
-  usernameAttributes = 'email';
+  // usernameAttributes = 'email';
   username: any;
   displayStaticAlert = false;
 
@@ -18,17 +18,24 @@ export class SigninComponent implements OnInit {
     hideAllDefaults: true,
     signUpFields: [
       {
+        label: 'Username',
+        key: 'username',
+        required: true,
+        displayOrder: 1,
+        type: 'string'
+      },
+      {
         label: 'Email',
         key: 'email',
         required: true,
-        displayOrder: 1,
+        displayOrder: 2,
         type: 'string',
       },
       {
         label: 'Password',
         key: 'password',
         required: true,
-        displayOrder: 2,
+        displayOrder: 3,
         type: 'password'
       }
     ]

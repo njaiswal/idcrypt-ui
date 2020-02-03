@@ -2,5 +2,5 @@
   <ngb-alert *ngIf="displayStaticAlert" [type]="'success'"  (close)="displayStaticAlert = false">Email verification for <b>{{username}}</b> is successful. Please sign-in again.</ngb-alert>
 </p>
 <div class="amplify-block">
-  <amplify-authenticator [signUpConfig]="signUpConfig" [usernameAttributes]="usernameAttributes"></amplify-authenticator>
+  <amplify-authenticator [signUpConfig]="signUpConfig"></amplify-authenticator>
 </div>
