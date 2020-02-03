@@ -1,31 +1,31 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-idcryptui-dev-184514-authRole",
-            "UnauthRoleArn": "arn:aws:iam::758837945329:role/amplify-idcryptui-dev-184514-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::758837945329:role/amplify-idcryptui-dev-184514-authRole",
+            "AuthRoleName": "amplify-idcryptui-dev-172024-authRole",
+            "UnauthRoleArn": "arn:aws:iam::758837945329:role/amplify-idcryptui-dev-172024-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::758837945329:role/amplify-idcryptui-dev-172024-authRole",
             "Region": "eu-west-1",
-            "DeploymentBucketName": "amplify-idcryptui-dev-184514-deployment",
-            "UnauthRoleName": "amplify-idcryptui-dev-184514-unauthRole",
-            "StackName": "amplify-idcryptui-dev-184514",
-            "StackId": "arn:aws:cloudformation:eu-west-1:758837945329:stack/amplify-idcryptui-dev-184514/fcb24e90-4522-11ea-8d5f-069d65c3affc",
-            "AmplifyAppId": "dbcf2czmbg0u9"
+            "DeploymentBucketName": "amplify-idcryptui-dev-172024-deployment",
+            "UnauthRoleName": "amplify-idcryptui-dev-172024-unauthRole",
+            "StackName": "amplify-idcryptui-dev-172024",
+            "StackId": "arn:aws:cloudformation:eu-west-1:758837945329:stack/amplify-idcryptui-dev-172024/8327ea70-46a9-11ea-af0c-06d4f42323aa",
+            "AmplifyAppId": "d11r7yi8d8vr96"
         },
         "categories": {
             "function": {
-                "idcryptUICreateAuthChallenge": {},
-                "idcryptUICustomMessage": {
+                "idcryptUiCreateAuthChallenge": {},
+                "idcryptUiCustomMessage": {
                     "REDIRECTURL": "https://dev.idcrypt.io/login/",
                     "EMAILSUBJECT": "Your IDCrypt verification link",
-                    "EMAILMESSAGE": "Please click link to confirm your registration"
+                    "EMAILMESSAGE": "Please click to verify email address."
                 },
-                "idcryptUIDefineAuthChallenge": {},
-                "idcryptUIVerifyAuthChallengeResponse": {
+                "idcryptUiDefineAuthChallenge": {},
+                "idcryptUiVerifyAuthChallengeResponse": {
                     "RECAPTCHASECRET": "6Lckr9QUAAAAAK5fnHTQLLEuyXpbcPVUMo4jBXiD"
                 }
             },
             "auth": {
-                "idcryptUI": {
+                "idcryptUi": {
                     "hostedUIProviderCreds": "[]"
                 }
             }

@@ -1,34 +1,34 @@
 {
 	"function": {
-		"idcryptUICreateAuthChallenge": {
+		"idcryptUiCreateAuthChallenge": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"idcryptUICustomMessage": {
+		"idcryptUiCustomMessage": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"idcryptUIDefineAuthChallenge": {
+		"idcryptUiDefineAuthChallenge": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		},
-		"idcryptUIVerifyAuthChallengeResponse": {
+		"idcryptUiVerifyAuthChallengeResponse": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true
 		}
 	},
 	"auth": {
-		"idcryptUI": {
+		"idcryptUi": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "idcryptUICreateAuthChallenge",
+					"resourceName": "idcryptUiCreateAuthChallenge",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -37,7 +37,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "idcryptUICustomMessage",
+					"resourceName": "idcryptUiCustomMessage",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -46,7 +46,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "idcryptUIDefineAuthChallenge",
+					"resourceName": "idcryptUiDefineAuthChallenge",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -55,7 +55,7 @@
 				},
 				{
 					"category": "function",
-					"resourceName": "idcryptUIVerifyAuthChallengeResponse",
+					"resourceName": "idcryptUiVerifyAuthChallengeResponse",
 					"triggerProvider": "Cognito",
 					"attributes": [
 						"Arn",
@@ -64,12 +64,6 @@
 				}
 			],
 			"customAuth": true
-		}
-	},
-	"storage": {
-		"idcryptUI": {
-			"service": "S3",
-			"providerPlugin": "awscloudformation"
 		}
 	}
 }

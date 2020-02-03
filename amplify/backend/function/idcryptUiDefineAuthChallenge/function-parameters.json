@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "captcha-define-challenge"
+    ],
+    "parentResource": "idcryptUi",
+    "functionName": "idcryptUiDefineAuthChallenge",
+    "parentStack": "auth",
+    "triggerEnvs": "[]",
+    "triggerTemplate": "DefineAuthChallenge.json.ejs",
+    "roleName": "idcryptUiDefineAuthChallenge",
+    "skipEdit": true,
+    "resourceName": "idcryptUiDefineAuthChallenge"
+}
