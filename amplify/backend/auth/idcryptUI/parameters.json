@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "idcryptUIIdentityPool",
+    "identityPoolName": "idcryptUiIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "idcryp7ab3585a",
-    "userPoolName": "idcryptUiUserPool",
+    "resourceNameTruncated": "idcryp43adac83",
+    "userPoolName": "idcryptUserPool",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -33,15 +33,12 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "idcryp7ab3585a_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "idcryp43adac83_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "idcryptUI",
     "thirdPartyAuth": false,
-    "usernameAttributes": [
-        "email"
-    ],
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": "{\"CreateAuthChallenge\":[\"captcha-create-challenge\"],\"CustomMessage\":[\"verification-link\"],\"DefineAuthChallenge\":[\"captcha-define-challenge\"],\"VerifyAuthChallengeResponse\":[\"captcha-verify\"]}",

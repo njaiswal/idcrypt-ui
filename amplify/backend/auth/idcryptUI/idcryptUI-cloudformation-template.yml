@@ -7,177 +7,174 @@ Parameters:
     Type: String
   unauthRoleArn:
     Type: String
-  
-  
-  
-  
-  functionidcryptUICreateAuthChallengeArn: 
+
+
+
+
+  functionidcryptUICreateAuthChallengeArn:
     Type: String
     Default: functionidcryptUICreateAuthChallengeArn
-  
-  functionidcryptUICreateAuthChallengeName: 
+
+  functionidcryptUICreateAuthChallengeName:
     Type: String
     Default: functionidcryptUICreateAuthChallengeName
-  
-  
-  
-  functionidcryptUICustomMessageArn: 
+
+
+
+  functionidcryptUICustomMessageArn:
     Type: String
     Default: functionidcryptUICustomMessageArn
-  
-  functionidcryptUICustomMessageName: 
+
+  functionidcryptUICustomMessageName:
     Type: String
     Default: functionidcryptUICustomMessageName
-  
-  
-  
-  functionidcryptUIDefineAuthChallengeArn: 
+
+
+
+  functionidcryptUIDefineAuthChallengeArn:
     Type: String
     Default: functionidcryptUIDefineAuthChallengeArn
-  
-  functionidcryptUIDefineAuthChallengeName: 
+
+  functionidcryptUIDefineAuthChallengeName:
     Type: String
     Default: functionidcryptUIDefineAuthChallengeName
-  
-  
-  
-  functionidcryptUIVerifyAuthChallengeResponseArn: 
+
+
+
+  functionidcryptUIVerifyAuthChallengeResponseArn:
     Type: String
     Default: functionidcryptUIVerifyAuthChallengeResponseArn
-  
-  functionidcryptUIVerifyAuthChallengeResponseName: 
+
+  functionidcryptUIVerifyAuthChallengeResponseName:
     Type: String
     Default: functionidcryptUIVerifyAuthChallengeResponseName
-  
-  
-  
 
-    
+
+
+
+
   identityPoolName:
     Type: String
-                
+
   allowUnauthenticatedIdentities:
     Type: String
-            
+
   resourceNameTruncated:
     Type: String
-              
+
   userPoolName:
     Type: String
-                      
+
   autoVerifiedAttributes:
     Type: CommaDelimitedList
-      
+
   mfaConfiguration:
     Type: String
-                      
+
   mfaTypes:
     Type: CommaDelimitedList
-      
+
   smsAuthenticationMessage:
     Type: String
-              
+
   smsVerificationMessage:
     Type: String
-              
+
   emailVerificationSubject:
     Type: String
-              
+
   emailVerificationMessage:
     Type: String
-                
+
   defaultPasswordPolicy:
     Type: String
-                
+
   passwordPolicyMinLength:
     Type: Number
-                  
+
   passwordPolicyCharacters:
     Type: CommaDelimitedList
-              
+
   requiredAttributes:
     Type: CommaDelimitedList
-        
+
   userpoolClientGenerateSecret:
     Type: String
-                
+
   userpoolClientRefreshTokenValidity:
     Type: Number
-                  
+
   userpoolClientWriteAttributes:
     Type: CommaDelimitedList
-              
+
   userpoolClientReadAttributes:
     Type: CommaDelimitedList
-      
+
   userpoolClientLambdaRole:
     Type: String
-                
+
   userpoolClientSetAttributes:
     Type: String
-            
+
   useDefault:
     Type: String
-              
+
   authSelections:
     Type: String
-              
+
   resourceName:
     Type: String
-                
+
   thirdPartyAuth:
     Type: String
-                    
-  usernameAttributes:
-    Type: CommaDelimitedList
-        
+
   userPoolGroups:
     Type: String
-              
+
   adminQueries:
     Type: String
-            
+
   triggers:
     Type: String
-                
+
   hostedUI:
     Type: String
-            
+
   hostedUIDomainName:
     Type: String
-                      
+
   authProvidersUserPool:
     Type: CommaDelimitedList
-      
+
   hostedUIProviderMeta:
     Type: String
-              
+
   hostedUIProviderCreds:
     Type: String
-              
+
   oAuthMetadata:
     Type: String
-                      
+
   userPoolGroupList:
     Type: CommaDelimitedList
-                  
+
   verificationBucketName:
     Type: String
-                                            
+
   parentStack:
     Type: String
-                
+
   permissions:
     Type: CommaDelimitedList
-              
+
   dependsOn:
     Type: CommaDelimitedList
-    
+
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
 Resources:
-  
+
   CustomMessageConfirmationBucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: "Retain"
@@ -189,44 +186,44 @@ Resources:
         ErrorDocument: "index.html"
       CorsConfiguration:
         CorsRules:
-          - 
+          -
             AllowedHeaders:
-              - "Authorization" 
+              - "Authorization"
               - "Content-Length"
             AllowedMethods:
               - "GET"
             AllowedOrigins:
               - "*"
             MaxAge: 3000
-  
-  
+
+
   # BEGIN SNS ROLE RESOURCE
-  SNSRole: 
+  SNSRole:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'idcryp7ab3585a_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
-      AssumeRolePolicyDocument: 
+      RoleName: !If [ShouldNotCreateEnvResources, 'idcryp43adac83_sns-role', !Join ['',[ 'sns', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      AssumeRolePolicyDocument:
         Version: "2012-10-17"
-        Statement: 
+        Statement:
           - Sid: ""
             Effect: "Allow"
-            Principal: 
+            Principal:
               Service: "cognito-idp.amazonaws.com"
-            Action: 
+            Action:
               - "sts:AssumeRole"
-            Condition: 
+            Condition:
               StringEquals:
-                sts:ExternalId: idcryp7ab3585a_role_external_id
-      Policies: 
-        - 
-          PolicyName: idcryp7ab3585a-sns-policy
-          PolicyDocument: 
+                sts:ExternalId: idcryp43adac83_role_external_id
+      Policies:
+        -
+          PolicyName: idcryp43adac83-sns-policy
+          PolicyDocument:
             Version: "2012-10-17"
-            Statement: 
-              - 
+            Statement:
+              -
                 Effect: "Allow"
-                Action: 
+                Action:
                   - "sns:Publish"
                 Resource: "*"
   # BEGIN USER POOL RESOURCES
@@ -237,42 +234,42 @@ Resources:
     UpdateReplacePolicy: Retain
     Properties:
       UserPoolName: !If [ShouldNotCreateEnvResources, !Ref userPoolName, !Join ['',[!Ref userPoolName, '-', !Ref env]]]
-      
-      Schema: 
-        
+
+      Schema:
+
         -
           Name: email
           Required: true
           Mutable: true
-        
-      
-      
+
+      AliasAttributes: ["email"]
+
       LambdaConfig:
-        
+
           CreateAuthChallenge: !Ref functionidcryptUICreateAuthChallengeArn
-        
-        
+
+
           CustomMessage: !Ref functionidcryptUICustomMessageArn
-        
-        
+
+
           DefineAuthChallenge: !Ref functionidcryptUIDefineAuthChallengeArn
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
           VerifyAuthChallengeResponse: !Ref functionidcryptUIVerifyAuthChallengeResponseArn
-        
-      
-      
+
+
+
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
-      
-      
+
+
       EmailVerificationMessage: !Ref emailVerificationMessage
       EmailVerificationSubject: !Ref emailVerificationSubject
-            
+
       Policies:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
@@ -280,74 +277,72 @@ Resources:
           RequireNumbers: true
           RequireSymbols: true
           RequireUppercase: true
-      
-      UsernameAttributes: !Ref usernameAttributes
-          
+
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
-      SmsConfiguration: 
+      SmsConfiguration:
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: idcryp7ab3585a_role_external_id
-    
-  
-  
-  UserPoolCreateAuthChallengeLambdaInvokePermission: 
+        ExternalId: idcryp43adac83_role_external_id
+
+
+
+  UserPoolCreateAuthChallengeLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionidcryptUICreateAuthChallengeName
       SourceArn: !GetAtt UserPool.Arn
-    
-  
-  UserPoolCustomMessageLambdaInvokePermission: 
+
+
+  UserPoolCustomMessageLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionidcryptUICustomMessageName
       SourceArn: !GetAtt UserPool.Arn
-    
-  
-  UserPoolDefineAuthChallengeLambdaInvokePermission: 
+
+
+  UserPoolDefineAuthChallengeLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionidcryptUIDefineAuthChallengeName
       SourceArn: !GetAtt UserPool.Arn
-  
-    
-    
-  
-  
-   
-  
-  UserPoolVerifyAuthChallengeResponseLambdaInvokePermission: 
+
+
+
+
+
+
+
+  UserPoolVerifyAuthChallengeResponseLambdaInvokePermission:
     Type: "AWS::Lambda::Permission"
     DependsOn: UserPool
-    Properties: 
+    Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
       FunctionName: !Ref functionidcryptUIVerifyAuthChallengeResponseName
       SourceArn: !GetAtt UserPool.Arn
-    
+
   # Updating lambda role with permissions to Cognito
-  
-  
+
+
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: idcryp7ab3585a_app_clientWeb
-      
+      ClientName: idcryp43adac83_app_clientWeb
+
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
-      
+
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
     DependsOn: UserPool
@@ -356,11 +351,11 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: idcryp7ab3585a_app_client
-      
+      ClientName: idcryp43adac83_app_client
+
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
-      
+
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -388,7 +383,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        ZipFile: !Join 
+        ZipFile: !Join
           - |+
           - - 'const response = require(''cfn-response'');'
             - 'const aws = require(''aws-sdk'');'
@@ -404,7 +399,7 @@ Resources:
             - '   };'
             - '   identity.describeUserPoolClient(params).promise()'
             - '     .then((res) => {'
-            - '       response.send(event, context, response.SUCCESS, {''appSecret'': res.UserPoolClient.ClientSecret});'   
+            - '       response.send(event, context, response.SUCCESS, {''appSecret'': res.UserPoolClient.ClientSecret});'
             - '     })'
             - '     .catch((err) => {'
             - '       response.send(event, context, response.FAILED, {err});'
@@ -414,7 +409,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs10.x
       Timeout: '300'
-      Role: !GetAtt 
+      Role: !GetAtt
         - UserPoolClientRole
         - Arn
     DependsOn: UserPoolClientRole
@@ -424,8 +419,8 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: idcryp7ab3585a_userpoolclient_lambda_iam_policy
-      Roles: 
+      PolicyName: idcryp43adac83_userpoolclient_lambda_iam_policy
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: '2012-10-17'
@@ -441,8 +436,8 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: idcryp7ab3585a_userpoolclient_lambda_log_policy
-      Roles: 
+      PolicyName: idcryp43adac83_userpoolclient_lambda_log_policy
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: 2012-10-17
@@ -452,10 +447,10 @@ Resources:
               - 'logs:CreateLogGroup'
               - 'logs:CreateLogStream'
               - 'logs:PutLogEvents'
-            Resource: !Sub  
+            Resource: !Sub
               - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
               - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref UserPoolClientLambda}
-    DependsOn: UserPoolClientLambdaPolicy  
+    DependsOn: UserPoolClientLambdaPolicy
   UserPoolClientInputs:
   # Values passed to Userpool client Lambda
   # Depends on UserPool for Id
@@ -467,12 +462,12 @@ Resources:
       clientId: !Ref UserPoolClient
       userpoolId: !Ref UserPool
     DependsOn: UserPoolClientLogPolicy
-  
+
   HostedUICustomResource:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        ZipFile: !Join 
+        ZipFile: !Join
           - |+
           - - 'const response = require(''cfn-response'');'
             - 'const aws = require(''aws-sdk'');'
@@ -491,7 +486,7 @@ Resources:
             - ' }'
             - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
             - '  let checkDomainAvailability = (domainName) => {'
-            - '  let params = { Domain: domainName };'   
+            - '  let params = { Domain: domainName };'
             - '  return identity.describeUserPoolDomain(params).promise().then((res) => {'
             - '   if (res.DomainDescription && res.DomainDescription.UserPool) {'
             - '    return false;'
@@ -540,7 +535,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs10.x
       Timeout: '300'
-      Role: !GetAtt 
+      Role: !GetAtt
         - UserPoolClientRole
         - Arn
     DependsOn: UserPoolClientRole
@@ -549,7 +544,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: !Join ['-',[!Ref UserPool, 'hostedUI']]
-      Roles: 
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: '2012-10-17'
@@ -569,7 +564,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: !Join ['-',[!Ref UserPool, 'hostedUILogPolicy']]
-      Roles: 
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: 2012-10-17
@@ -579,7 +574,7 @@ Resources:
               - 'logs:CreateLogGroup'
               - 'logs:CreateLogStream'
               - 'logs:PutLogEvents'
-            Resource: !Sub  
+            Resource: !Sub
               - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
               - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref HostedUICustomResource}
     DependsOn: HostedUICustomResourcePolicy
@@ -590,14 +585,14 @@ Resources:
       userPoolId: !Ref UserPool
       hostedUIDomainName: !If [ShouldNotCreateEnvResources, !Ref hostedUIDomainName, !Join ['-',[!Ref hostedUIDomainName, !Ref env]]]
     DependsOn: HostedUICustomResourceLogPolicy
-  
 
-  
+
+
   HostedUIProvidersCustomResource:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        ZipFile: !Join 
+        ZipFile: !Join
           - |+
           - - 'const response = require(''cfn-response'');'
             - 'const aws = require(''aws-sdk'');'
@@ -612,7 +607,7 @@ Resources:
             - ' }'
             - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
             - '  let getRequestParams = (providerName) => {'
-            - '   let providerMetaIndex = hostedUIProviderMeta.findIndex((provider) => provider.ProviderName === providerName);'   
+            - '   let providerMetaIndex = hostedUIProviderMeta.findIndex((provider) => provider.ProviderName === providerName);'
             - '   let providerMeta =  hostedUIProviderMeta[providerMetaIndex];'
             - '   let providerCredsIndex = hostedUIProviderCreds.findIndex((provider) => provider.ProviderName === providerName);'
             - '   let providerCreds = hostedUIProviderCreds[providerCredsIndex];'
@@ -669,7 +664,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs10.x
       Timeout: '300'
-      Role: !GetAtt 
+      Role: !GetAtt
         - UserPoolClientRole
         - Arn
     DependsOn: UserPoolClientRole
@@ -678,7 +673,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: !Join ['-',[!Ref UserPool, 'hostedUIProvider']]
-      Roles: 
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: '2012-10-17'
@@ -696,7 +691,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: !Join ['-',[!Ref UserPool, 'hostedUIProviderLogPolicy']]
-      Roles: 
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: 2012-10-17
@@ -706,7 +701,7 @@ Resources:
               - 'logs:CreateLogGroup'
               - 'logs:CreateLogStream'
               - 'logs:PutLogEvents'
-            Resource: !Sub  
+            Resource: !Sub
               - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
               - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref HostedUIProvidersCustomResource}
     DependsOn: HostedUIProvidersCustomResourcePolicy
@@ -719,13 +714,13 @@ Resources:
       hostedUIProviderMeta: !Ref hostedUIProviderMeta
       hostedUIProviderCreds: !Ref hostedUIProviderCreds
     DependsOn: HostedUIProvidersCustomResourceLogPolicy
-  
-  
+
+
   OAuthCustomResource:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        ZipFile: !Join 
+        ZipFile: !Join
           - |+
           - - 'const response = require(''cfn-response'');'
             - 'const aws = require(''aws-sdk'');'
@@ -744,7 +739,7 @@ Resources:
             - ' }'
             - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
             - '  let params = {'
-            - '   UserPoolId: userPoolId,'   
+            - '   UserPoolId: userPoolId,'
             - '   AllowedOAuthFlows: oAuthMetadata.AllowedOAuthFlows,'
             - '   AllowedOAuthFlowsUserPoolClient: true,'
             - '   AllowedOAuthScopes: oAuthMetadata.AllowedOAuthScopes,'
@@ -768,7 +763,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs10.x
       Timeout: '300'
-      Role: !GetAtt 
+      Role: !GetAtt
         - UserPoolClientRole
         - Arn
     DependsOn: HostedUIProvidersCustomResourceInputs
@@ -777,7 +772,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: !Join ['-',[!Ref UserPool, 'OAuth']]
-      Roles: 
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: '2012-10-17'
@@ -792,7 +787,7 @@ Resources:
     Type: 'AWS::IAM::Policy'
     Properties:
       PolicyName: !Join ['-',[!Ref UserPool, 'OAuthLogPolicy']]
-      Roles: 
+      Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
         Version: 2012-10-17
@@ -802,7 +797,7 @@ Resources:
               - 'logs:CreateLogGroup'
               - 'logs:CreateLogStream'
               - 'logs:PutLogEvents'
-            Resource: !Sub  
+            Resource: !Sub
               - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
               - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref OAuthCustomResource}
     DependsOn: OAuthCustomResourcePolicy
@@ -817,19 +812,19 @@ Resources:
       webClientId: !Ref 'UserPoolClientWeb'
       nativeClientId: !Ref 'UserPoolClient'
     DependsOn: OAuthCustomResourceLogPolicy
-  
 
-  
-    
+
+
+
   # BEGIN IDENTITY POOL RESOURCES
-  
- 
+
+
   IdentityPool:
   # Always created
     Type: AWS::Cognito::IdentityPool
-    Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'idcryptUIIdentityPool', !Join ['',['idcryptUIIdentityPool', '__', !Ref env]]]
-      
+    Properties:
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'idcryptUiIdentityPool', !Join ['',['idcryptUiIdentityPool', '__', !Ref env]]]
+
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient
           ProviderName: !Sub
@@ -839,42 +834,42 @@ Resources:
           ProviderName: !Sub
             - cognito-idp.${region}.amazonaws.com/${client}
             - { region: !Ref "AWS::Region",  client: !Ref UserPool}
-            
+
       AllowUnauthenticatedIdentities: !Ref allowUnauthenticatedIdentities
-       
-       
-    DependsOn: UserPoolClientInputs 
-    
-  
+
+
+    DependsOn: UserPoolClientInputs
+
+
   IdentityPoolRoleMap:
   # Created to map Auth and Unauth roles to the identity pool
   # Depends on Identity Pool for ID ref
     Type: AWS::Cognito::IdentityPoolRoleAttachment
-    Properties: 
+    Properties:
       IdentityPoolId: !Ref IdentityPool
       Roles:
           unauthenticated: !Ref unauthRoleArn
           authenticated: !Ref authRoleArn
     DependsOn: IdentityPool
-  
+
 
 Outputs :
-  
+
   IdentityPoolId:
     Value: !Ref 'IdentityPool'
     Description:  Id for the identity pool
   IdentityPoolName:
-    Value: !GetAtt IdentityPool.Name 
-  
-  
+    Value: !GetAtt IdentityPool.Name
+
+
   HostedUIDomain:
     Value: !If [ShouldNotCreateEnvResources, !Ref hostedUIDomainName, !Join ['-',[!Ref hostedUIDomainName, !Ref env]]]
-  
-  
+
+
   OAuthMetadata:
     Value: !Ref oAuthMetadata
-  
-  
+
+
   UserPoolId:
     Value: !Ref 'UserPool'
     Description:  Id for the user pool
@@ -888,10 +883,10 @@ Outputs :
     Description: The user pool app client id
   AppClientSecret:
     Value: !GetAtt UserPoolClientInputs.appSecret
-  
-   
-   
-  
-   
-   
-  
+
+
+
+
+
+
+
