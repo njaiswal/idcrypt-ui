@@ -25,3 +25,12 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+# Nishant - Notes:
+- aws-export.js file gets created. I have to rename it to aws-export.ts and update reference in main.ts file so that build passes.
+  Each time amplify push is run another aws-export.js file is created and I have to manually do above step.
+  More over aws-export.js file is included in .gitignore hence it does not get checked in.
+  This manual process needs to be ironed out.
+
+- environment.ts file needed to be updated each time amplify auth delete and amplify push is called that creates a new user pool.

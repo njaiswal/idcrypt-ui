@@ -8,8 +8,8 @@ export const environment = {
     Auth: {
       identityPoolId: 'eu-west-1:727dc0ba-fd1b-4591-b036-8c7f5f0a3c9b',
       region: 'eu-west-1',
-      userPoolId: 'eu-west-1_pOQz5nJN1',
-      userPoolWebClientId: '4nbk46md8imle80qhcae8jkptc'
+      userPoolId: 'eu-west-1_vJM2DJbgL',
+      userPoolWebClientId: '5cmdnqntii5adcsote0hbc6si3'
     }
   }
 };

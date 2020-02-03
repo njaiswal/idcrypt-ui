@@ -12,7 +12,9 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
     ]
   },
-  {path: 'login', component: SigninComponent},
+  {path: 'login', component: SigninComponent, children: [
+      { path: ':username', component: SigninComponent }
+    ]},
 ];
 
 @NgModule({

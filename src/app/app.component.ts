@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   signedIn: boolean;
   user: any;
 
-
   constructor(private  authService: AuthService,
               private router: Router,
               private logger: LoggingService,
@@ -35,7 +34,7 @@ export class AppComponent implements OnInit {
           this.user = null;
           this.isAuthenticated = false;
         } else {
-          this.user = authState.user;
+          this.user = authState.user.attributes;
           this.isAuthenticated = true;
           this.router.navigate(['/home']);
         }

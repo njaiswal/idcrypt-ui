@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {ActivatedRoute, Data, Params} from '@angular/router';
+import {LoggingService} from '../../shared/logging.service';
 
 @Component({
   selector: 'app-signin',
@@ -9,6 +11,8 @@ import {NgForm} from '@angular/forms';
 export class SigninComponent implements OnInit {
   @ViewChild('usrForm', {static: true}) form: NgForm;
   usernameAttributes = 'email';
+  username: any;
+  displayStaticAlert = false;
 
   signUpConfig = {
     hideAllDefaults: true,
@@ -30,9 +34,16 @@ export class SigninComponent implements OnInit {
     ]
   };
 
-  constructor() {
+  constructor(private activateRoute: ActivatedRoute, private logger: LoggingService) {
   }
 
   ngOnInit() {
+    this.activateRoute.queryParams
+      .subscribe(
+        (queryParams: Params) => {
+          this.username = queryParams.username;
+          this.displayStaticAlert = true;
+        }
+      );
   }
 }

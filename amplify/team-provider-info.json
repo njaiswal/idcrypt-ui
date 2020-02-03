@@ -15,9 +15,9 @@
             "function": {
                 "idcryptUICreateAuthChallenge": {},
                 "idcryptUICustomMessage": {
-                    "REDIRECTURL": "https://dev.idcrypt.io/",
-                    "EMAILSUBJECT": "Your IDCrypt registration confirmation link",
-                    "EMAILMESSAGE": "Please click link to confirm your IDCrypt user registration."
+                    "REDIRECTURL": "https://dev.idcrypt.io/login",
+                    "EMAILSUBJECT": "Your IDCrypt verification link",
+                    "EMAILMESSAGE": "Please click link to confirm your IDCrypt registration"
                 },
                 "idcryptUIDefineAuthChallenge": {},
                 "idcryptUIVerifyAuthChallengeResponse": {
