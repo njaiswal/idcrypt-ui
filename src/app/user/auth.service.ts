@@ -5,7 +5,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import {map, tap, catchError} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
-import Amplify, {Auth} from 'aws-amplify';
+import Amplify, {Auth, I18n} from 'aws-amplify';
 import {environment} from '../../environments/environment';
 
 @Injectable()
@@ -16,7 +16,15 @@ export class AuthService {
   constructor(
     private router: Router
   ) {
+    I18n.setLanguage('en-US');
+    I18n.putVocabularies({
+      'en-US':
+        {
+          Email: 'Company Email'
+        }
+    });
     Amplify.configure(environment.amplify);
+
     this.loggedIn = new BehaviorSubject<boolean>(false);
   }
 
