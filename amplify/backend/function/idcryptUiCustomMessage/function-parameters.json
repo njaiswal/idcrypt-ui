@@ -1,0 +1,14 @@
+{
+    "trigger": true,
+    "modules": [
+        "verification-link"
+    ],
+    "parentResource": "idcryptUi",
+    "functionName": "idcryptUiCustomMessage",
+    "parentStack": "auth",
+    "triggerEnvs": "[{\"key\":\"RESOURCENAME\",\"value\":\"resourceName\"}]",
+    "triggerTemplate": "CustomMessage.json.ejs",
+    "roleName": "idcryptUiCustomMessage",
+    "skipEdit": true,
+    "resourceName": "idcryptUiCustomMessage"
+}

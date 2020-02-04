@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light bd-sidebar-links" id="sidebar"
+     aria-label="Sidebar Navigation">
+  <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="sidebar-nav" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="sidebar-nav" [ngbCollapse]="isCollapsed">
+
+    <ul class="list-unstyled components">
+      <li class="nav-item" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="sidebar-nav">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">
+          <i class="fas fa-home"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#repoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-folder-plus"></i>
+          Repositories
+        </a>
+        <ul class="collapse list-unstyled" id="repoSubmenu">
+          <li>
+            <a href="#">Repo 1</a>
+          </li>
+          <li>
+            <a href="#">Repo 2</a>
+          </li>
+          <li>
+            <a href="#">Repo 3</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-user"></i>
+          Employees
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-user-shield"></i>
+          Administrators
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-passport"></i>
+          Documents
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-poll"></i>
+          Reports
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-file-invoice-dollar"></i>
+          Billing
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-cogs"></i>
+          Settings
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-paper-plane"></i>
+          Support
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
