@@ -17,7 +17,7 @@
                 "idcryptUiCustomMessage": {
                     "REDIRECTURL": "https://dev.idcrypt.io/login/",
                     "EMAILSUBJECT": "Your IDCrypt verification link",
-                    "EMAILMESSAGE": "Please click to verify email address."
+                    "EMAILMESSAGE": "Please verify your IDCrypt email address.<br>If you have not initiated user registration either ignore this email or contact support@idcrypt.io.<br>Your verification code is {####}. <br><br>Your verification link is:"
                 },
                 "idcryptUiDefineAuthChallenge": {},
                 "idcryptUiVerifyAuthChallengeResponse": {

@@ -119,7 +119,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-idcryptui-dev-172024-deployment",
-					"S3Key": "amplify-builds/idcryptUiCustomMessage-735932434c6d32695a31-build.zip"
+					"S3Key": "amplify-builds/idcryptUiCustomMessage-46314561785956426456-build.zip"
 				}
 			}
 		},

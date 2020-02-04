@@ -8,13 +8,16 @@ import {PageContentComponent} from './page-content/page-content.component';
 
 
 const routes: Routes = [
-  {path: '', canActivate: [AuthGuard], component: PageContentComponent, children: [
+  {
+    path: '', canActivate: [AuthGuard], component: PageContentComponent, children: [
       {path: 'home', component: HomeComponent},
     ]
   },
-  {path: 'login', component: SigninComponent, children: [
-      { path: ':username', component: SigninComponent }
-    ]},
+  {
+    path: 'login', component: SigninComponent, children: [
+      {path: ':username', component: SigninComponent}
+    ]
+  },
 ];
 
 @NgModule({
