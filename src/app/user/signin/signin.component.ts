@@ -10,8 +10,8 @@ import {LoggingService} from '../../shared/logging.service';
 })
 export class SigninComponent implements OnInit {
   @ViewChild('usrForm', {static: true}) form: NgForm;
-  // usernameAttributes = 'email';
-  username: any;
+  username: string;
+  verifyerr: string;
   displayStaticAlert = false;
 
   signUpConfig = {
@@ -49,6 +49,7 @@ export class SigninComponent implements OnInit {
       .subscribe(
         (queryParams: Params) => {
           this.username = queryParams.username;
+          this.verifyerr = queryParams.verifyerr;
           this.displayStaticAlert = true;
         }
       );

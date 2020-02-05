@@ -34,3 +34,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   This manual process needs to be ironed out.
 
 - environment.ts file needed to be updated each time amplify auth delete and amplify push is called that creates a new user pool.
+
+- url redirect rule needs to be added manually to amplify UI to make SPA routing work as expected.
+  refer: https://docs.aws.amazon.com/amplify/latest/userguide/redirects.html#redirects-for-single-page-web-apps-spa
+  Can this be included in amplify config so that it gets carried over to next env.
