@@ -1,16 +1,29 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import {TestBed, async} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppComponent} from './app.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from './user/auth.service';
+import {LoggingService} from './shared/logging.service';
+import {LoaderService} from './shared/loader.service';
+import {AmplifyService} from 'aws-amplify-angular';
+import {By} from 'protractor';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        NgbModule
       ],
       declarations: [
         AppComponent
       ],
+      providers: [
+        AuthService,
+        LoggingService,
+        LoaderService,
+        AmplifyService
+      ]
     }).compileComponents();
   }));
 
@@ -20,16 +33,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'idcrypt-ui'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('idcrypt-ui');
-  });
 
-  it('should render title', () => {
+  it('should render Brand', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('idcrypt-ui app is running!');
+    expect(compiled.querySelector(By.css('nav-brand')).textContent).toContain('IDCrypt');
   });
 });

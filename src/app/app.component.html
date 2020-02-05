@@ -33,7 +33,7 @@
       </li>
       <li *ngIf="signedIn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item"
           (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
-        <a class="nav-link" routerLink="/settings">{{user.email}}</a>
+        <a *ngIf="user" class="nav-link" routerLink="/settings">{{user.email}}</a>
       </li>
       <li *ngIf="signedIn" routerLinkActive="active" class="nav-item"
           [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">

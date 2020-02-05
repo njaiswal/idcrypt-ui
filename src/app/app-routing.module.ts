@@ -5,12 +5,14 @@ import {HomeComponent} from './page-content/home/home.component';
 import {SigninComponent} from './user/signin/signin.component';
 import {AuthGuard} from './user/auth-guard.service';
 import {PageContentComponent} from './page-content/page-content.component';
+import {SettingsComponent} from './page-content/settings/settings.component';
 
 
 const routes: Routes = [
   {
     path: '', canActivate: [AuthGuard], component: PageContentComponent, children: [
       {path: 'home', component: HomeComponent},
+      {path: 'settings', component: SettingsComponent}
     ]
   },
   {
