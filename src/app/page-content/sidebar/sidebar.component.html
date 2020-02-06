@@ -60,8 +60,8 @@
           Billing
         </a>
       </li>
-      <li>
-        <a href="#">
+      <li class="nav-item" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="sidebar-nav">
+        <a class="nav-link" routerLink="/settings" routerLinkActive="active">
           <i class="fas fa-cogs"></i>
           Settings
         </a>

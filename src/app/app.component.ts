@@ -12,7 +12,6 @@ import {AmplifyService} from 'aws-amplify-angular';
 })
 export class AppComponent implements OnInit {
   showLoader: boolean;
-  isAuthenticated = false;
   isCollapsed = true;
 
   signedIn: boolean;
@@ -32,10 +31,8 @@ export class AppComponent implements OnInit {
         this.signedIn = authState.state === 'signedIn';
         if (!authState.user) {
           this.user = null;
-          this.isAuthenticated = false;
         } else {
           this.user = authState.user.attributes;
-          this.isAuthenticated = true;
           this.router.navigate(['/home']);
         }
       });

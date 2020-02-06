@@ -12,8 +12,9 @@ import {LoggingService} from './shared/logging.service';
 import {LoaderService} from './shared/loader.service';
 import {PageContentComponent} from './page-content/page-content.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {RecaptchaFormsModule, RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings} from 'ng-recaptcha';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import { SettingsComponent } from './page-content/settings/settings.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -23,23 +24,17 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
     HomeComponent,
     SigninComponent,
     PageContentComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
-    AmplifyAngularModule
+    AmplifyAngularModule,
+    ModalModule.forRoot()
   ],
-  providers: [AuthService, LoggingService, LoaderService, AmplifyService, {
-    provide: RECAPTCHA_SETTINGS,
-    useValue: {
-      siteKey: '6Lckr9QUAAAAAO57BPwtRAzSFKnFNU9OiEgvccPP',
-      size: 'normal'
-    } as RecaptchaSettings,
-  }],
+  providers: [AuthService, LoggingService, LoaderService, AmplifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
