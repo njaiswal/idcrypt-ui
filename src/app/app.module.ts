@@ -15,6 +15,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { SettingsComponent } from './page-content/settings/settings.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import {HttpClientModule} from '@angular/common/http';
+import { AccountInfoComponent } from './page-content/home/account-info/account-info.component';
 
 
 @NgModule({
@@ -25,11 +27,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     SigninComponent,
     PageContentComponent,
     SettingsComponent,
+    AccountInfoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     NgbModule,
     AmplifyAngularModule,
     ModalModule.forRoot()

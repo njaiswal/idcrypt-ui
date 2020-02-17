@@ -50,7 +50,8 @@ export class AuthService {
         } else {
           this.loggedInUser = {
             username: authState.user.username,
-            email: authState.user.attributes.email
+            email: authState.user.attributes.email,
+            sub: authState.user.attributes.sub
           };
         }
       });

@@ -1,1 +1,80 @@
-<p>home works!</p>
+<div class="card">
+  <div class="card-header">
+    Home
+  </div>
+  <div class="card-subtitle">
+    <p class="text-center">
+      <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type"
+                 (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
+    </p>
+  </div>
+  <div class="card-body">
+    <!-- Start: User is a owner of a account   -->
+    <div *ngIf="ownedAccount !== null">
+      <app-account-info [account]="ownedAccount" (activateAccount)="onActivateAccount()" (deactivateAccount)="onDeactivateAccount()">
+      </app-account-info>
+    </div>
+    <!-- End -->
+
+    <div *ngIf="ownedAccount=== null && sameDomainAccounts.length == 0">     <!-- Start: User is not a owner   -->
+      <p class="font-weight-bold">Please create a new Account. Other members of your organisation will be able to join
+        this account.</p>
+      <div class="mt-2 mb-2">
+        <button type="button" id="newAccount" class="btn btn-primary btn-sm" data-toggle="modal"
+                data-target="#newAccountModal">
+          Create a new Account
+        </button>
+
+        <div class="modal fade" id="newAccountModal" tabindex="-1" role="dialog"  aria-labelledby="newAccountModalLabel"  aria-hidden="true"> <!-- New Account Modal -->
+
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="newAccountModalLabel">Create New Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div>
+                    <form (ngSubmit)="onNewAccount()" #usrForm="ngForm">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          ngModel
+                          placeholder="Account Name"
+                          class="form-control"
+                          required>
+                      </div>
+                    </form>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" [disabled]="usrForm.invalid" (click)="onNewAccount()" data-dismiss="modal"
+                            class="btn btn-primary">Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- End -->
+
+      </div>
+      <div *ngIf="ownedAccount=== null && sameDomainAccounts.length > 0">       <!-- Start: User can join an account with same domain      -->
+        <div class="mt-2 mb-2">
+          <button type="button" id="joinAccount" class="btn btn-primary btn-sm">
+            Join an existing account
+          </button>
+        </div>
+      </div>
+      <!-- End -->
+
+    </div>
+
+  </div>
+</div>

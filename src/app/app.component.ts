@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from './user/auth.service';
 import {LoggingService} from './shared/logging.service';
@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
               private router: Router,
               private logger: LoggingService,
               private loaderService: LoaderService,
-              private amplifyService: AmplifyService) {
+              private amplifyService: AmplifyService,
+              private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
     // Subscribe to loader service status
     this.loaderService.status.subscribe((val: boolean) => {
       this.showLoader = val;
+      this.changeDetectorRef.detectChanges();
     });
   }
 
