@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Request Status History</h1>
+<div mat-dialog-content>
+
+  <p *ngIf="data.updateHistory.length === 0">No recorded actions on this request yet!</p>
+  <mat-list *ngFor="let historyItem of data.updateHistory" role="list">
+    <mat-list-item role="listitem">{{historyItem.action}} by {{historyItem.updatedByEmail}} on {{historyItem.updatedAt | date}}</mat-list-item>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

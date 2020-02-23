@@ -17,6 +17,28 @@ import { SettingsComponent } from './page-content/settings/settings.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {HttpClientModule} from '@angular/common/http';
 import { AccountInfoComponent } from './page-content/home/account-info/account-info.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog';
+import { NewAccountComponent } from './page-content/home/new-account/new-account.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule, MatInputModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { RequestsComponent } from './page-content/requests/requests.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {HumanCase} from './shared/human-case.pipe';
+import { RequestConfirmComponent } from './page-content/requests/request-confirm/request-confirm.component';
+import {MatListModule} from '@angular/material/list';
+import {SplitIntoNewLines} from './shared/split-into-newlines.pipe';
+import { RequestStatusDetailsComponent } from './page-content/requests/request-status-details/request-status-details.component';
+
+
+
 
 
 @NgModule({
@@ -28,6 +50,12 @@ import { AccountInfoComponent } from './page-content/home/account-info/account-i
     PageContentComponent,
     SettingsComponent,
     AccountInfoComponent,
+    NewAccountComponent,
+    RequestsComponent,
+    HumanCase,
+    RequestConfirmComponent,
+    SplitIntoNewLines,
+    RequestStatusDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +64,25 @@ import { AccountInfoComponent } from './page-content/home/account-info/account-i
     HttpClientModule,
     NgbModule,
     AmplifyAngularModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BrowserAnimationsModule,
+    MatRadioModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatGridListModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
+    MatCheckboxModule,
+    MatListModule
   ],
   providers: [AuthService, LoggingService, LoaderService, AmplifyService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [NewAccountComponent, RequestConfirmComponent, RequestStatusDetailsComponent]
 })
 export class AppModule {
 }

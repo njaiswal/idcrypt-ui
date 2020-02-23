@@ -6,5 +6,6 @@ export class AlertBox {
 
 export enum AlertType {
   success = 'success',
-  danger = 'danger'
+  danger = 'danger',
+  info = 'info'
 }

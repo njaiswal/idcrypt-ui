@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Confirm {{data.action}}</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to <span class="font-weight-bold">{{data.action}}</span> following requests?</p>
+  <mat-list *ngFor="let appRequest of data.selected" role="list">
+    <mat-list-item role="listitem">{{appRequest.requestType}} - {{appRequest.requesteeEmail}}</mat-list-item>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data">Yes</button>
+</div>

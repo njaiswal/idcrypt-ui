@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Create New Account</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Account Name</mat-label>
+    <input matInput [(ngModel)]="data.name" required>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="data">Create</button>
+</div>

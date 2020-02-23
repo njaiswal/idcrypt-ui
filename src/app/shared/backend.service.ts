@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import Auth from '@aws-amplify/auth';
 import {API} from 'aws-amplify';
 import {NewAccount, Status} from '../page-content/model/account.model';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
+import {AppRequest, NewAppRequest} from '../page-content/model/request.model';
 
 
 @Injectable({providedIn: 'root'})
@@ -15,11 +16,37 @@ export class BackendService {
     this.env = environment.env;
   }
 
+  async submitRequest(request: NewAppRequest) {
+    const path = '/requests/';
+    return API.post(this.apiName, path, {
+      headers: await this.getHeaders(),
+      body: request
+    });
+  }
+
   async createAccount(account: NewAccount) {
     const path = '/account/';
     return API.post(this.apiName, path, {
       headers: await this.getHeaders(),
       body: account
+    });
+  }
+
+  async getMyRequests(status: string) {
+    const path = '/requests/?status=' + status;
+    return API.get(this.apiName, path, {
+      headers: await this.getHeaders()
+    });
+  }
+
+  async changeRequestStatus(request: AppRequest, newStatus: string) {
+    const path = '/requests/?status=' + newStatus;
+    return API.put(this.apiName, path, {
+      headers: await this.getHeaders(),
+      body: {
+        accountId: request.accountId,
+        requestId: request.requestId
+      }
     });
   }
 
