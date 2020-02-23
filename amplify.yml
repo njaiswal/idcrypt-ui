@@ -12,7 +12,7 @@ frontend:
         - npm ci
     build:
       commands:
-        - npm run build -- --configuration=${env}
+        - npm run build -- --configuration=${env}  --verbose=true
   artifacts:
     baseDirectory: dist/idcrypt-ui
     files:
