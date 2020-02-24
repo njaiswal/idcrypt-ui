@@ -28,7 +28,7 @@
     <label for="staticCreatedAt" class="col-sm-2 col-form-label font-weight-bold">Created On</label>
     <div class="col-sm-10">
       <input type="text" readonly class="form-control-plaintext" id="staticCreatedAt"
-             value="{{account.createdAt | date }}">
+             value="{{account.createdAt | toDateObj | date }}">
     </div>
   </div>
   <hr>

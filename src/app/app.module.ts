@@ -40,6 +40,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ToDateObj} from './shared/toDateObj.pipe';
 
 
 
@@ -62,7 +63,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     HumanCase,
     RequestConfirmComponent,
     SplitIntoNewLines,
-    RequestStatusDetailsComponent
+    RequestStatusDetailsComponent,
+    ToDateObj
   ],
   imports: [
     BrowserModule,
