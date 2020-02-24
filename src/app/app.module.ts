@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
-import {SidebarComponent} from './page-content/sidebar/sidebar.component';
 import {HomeComponent} from './page-content/home/home.component';
 import {SigninComponent} from './user/signin/signin.component';
 import {AuthService} from './user/auth.service';
@@ -36,6 +35,15 @@ import { RequestConfirmComponent } from './page-content/requests/request-confirm
 import {MatListModule} from '@angular/material/list';
 import {SplitIntoNewLines} from './shared/split-into-newlines.pipe';
 import { RequestStatusDetailsComponent } from './page-content/requests/request-status-details/request-status-details.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+
+
+
 
 
 
@@ -44,7 +52,6 @@ import { RequestStatusDetailsComponent } from './page-content/requests/request-s
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
     HomeComponent,
     SigninComponent,
     PageContentComponent,
@@ -78,7 +85,12 @@ import { RequestStatusDetailsComponent } from './page-content/requests/request-s
     MatTableModule,
     MatSortModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthService, LoggingService, LoaderService, AmplifyService],
   bootstrap: [AppComponent],
