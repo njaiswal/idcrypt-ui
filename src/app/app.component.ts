@@ -32,9 +32,10 @@ export class AppComponent implements OnInit, OnDestroy {
               private amplifyService: AmplifyService,
               private changeDetectorRef: ChangeDetectorRef,
               private media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQuery = media.matchMedia('screen and (max-width: 600px)');
+    this.logger.info('mobileQuery' + this.mobileQuery);
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -59,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   onLogout() {
