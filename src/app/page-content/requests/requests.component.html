@@ -73,7 +73,7 @@
     </table>
 
     <div class="request-action-button-row">
-      <button mat-icon-button aria-label="refresh" (click)="refreshRequestsTable()"> <i class="fas fa-sync-alt"></i> </button>
+      <button mat-icon-button aria-label="refresh" (click)="refreshRequestsTable()"><mat-icon>refresh</mat-icon></button>
       <button *ngIf="ownedAccount != null && requestStatus !== 'archived'" mat-button color="warn" (click)="openConfirmDialog('denied')" [disabled]="selection.selected.length == 0">Deny</button>
       <button *ngIf="ownedAccount != null && requestStatus !== 'archived'" mat-button color="primary" (click)="openConfirmDialog('approved')" [disabled]="selection.selected.length == 0">Approve</button>
       <button *ngIf="ownedAccount == null && requestStatus !== 'archived'" mat-button color="warn" (click)="openConfirmDialog('cancelled')" [disabled]="selection.selected.length == 0">Cancel Request</button>
