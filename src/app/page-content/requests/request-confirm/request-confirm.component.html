@@ -1,8 +1,12 @@
 <h1 mat-dialog-title>Confirm {{data.action}}</h1>
 <div mat-dialog-content>
-  <p>Are you sure you want to <span class="font-weight-bold">{{data.action}}</span> following requests?</p>
-  <mat-list *ngFor="let appRequest of data.selected" role="list">
-    <mat-list-item role="listitem">{{appRequest.requestType}} - {{appRequest.requesteeEmail}}</mat-list-item>
+  <p>Are you sure you want to mark the following requests as <span class="font-weight-bold">{{data.action}}</span>?</p>
+  <mat-list role="list" dense>
+    <mat-list-item role="listitem">
+      <mat-icon *ngIf="data.action === 'approved'">done</mat-icon>
+      <mat-icon *ngIf="data.action === 'denied'">block</mat-icon>
+      <mat-icon *ngIf="data.action === 'cancelled'">clear</mat-icon>
+      {{data.selected.requestType | humancase}} - {{data.selected.requesteeEmail}} </mat-list-item>
   </mat-list>
 </div>
 <div mat-dialog-actions>

@@ -8,6 +8,7 @@ export class HumanCase implements PipeTransform {
     }
     value = value.split(/(?=[A-Z])/).join(' ');
     value = value[0].toUpperCase() + value.slice(1);
+    value = value.replace('Repo Approver', 'Repository Approver');
     return value;
   }
 }

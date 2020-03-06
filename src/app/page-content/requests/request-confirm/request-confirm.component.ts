@@ -10,7 +10,7 @@ import {AppRequest} from '../../model/request.model';
 export class RequestConfirmComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<RequestConfirmComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { action: string, selected: AppRequest[] }) {
+              @Inject(MAT_DIALOG_DATA) public data: { action: string, selected: AppRequest }) {
   }
 
   ngOnInit() {

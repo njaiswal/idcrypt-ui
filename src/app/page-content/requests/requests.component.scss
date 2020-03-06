@@ -8,6 +8,62 @@ table {
   width: 100%;
 }
 
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.expanded-full-width {
+  width: 100%;
+}
+
+.expanded-half-width {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+tr.request-detail-row {
+  height: 0;
+}
+
+tr.request-element-row:not(.request-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.request-element-row:not(.request-expanded-row):active {
+  background: #efefef;
+}
+
+.request-element-row td {
+  border-bottom-width: 0;
+}
+
+.request-element-detail {
+  overflow: hidden;
+  display: flex;
+  background: ghostwhite;
+}
+
+.request-element-details {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.request-action-button-row button,
+.request-action-button-row a {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
 .request-action-button-row button,
 .request-action-button-row a {
   margin-top: 8px;

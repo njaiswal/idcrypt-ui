@@ -31,60 +31,61 @@
              value="{{account.createdAt | toDateObj | date }}">
     </div>
   </div>
-  <hr>
-  <div *ngIf="account.status === 'active'" class="form-group row">
-    <label for="deactivateAccount" class="col-sm-2 col-form-label font-weight-bold"></label>
-    <div class="col-sm-5">
-      <input type="text" readonly class="form-control-plaintext" id="deactivateAccount" value="Deactivate Account">
-    </div>
-    <div class="col-sm-5">
-      <button type="button" class="btn btn-danger" (click)="openConfirmationModal(template)">
-        Deactivate
-      </button>
-      <br><br>
-      <ng-template #template>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-deactivate-title">Account Deactivation</h4>
-        </div>
-        <div class="modal-body">
-          <p>
-            <strong>Are you sure you want to deactivate <span class="text-primary">"{{account.name}}"</span>?</strong>
-          </p>
-          <p>Document uploads to this account will be suspended.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" (click)="confirmAccountDeactivation()">Yes</button>
-          <button type="button" class="btn btn-danger" (click)="declineConfirmationModal()">No</button>
-        </div>
-      </ng-template>
-    </div>
-  </div>
+<!--  <hr *ngIf="amAccountOwner">-->
+<!--  <div *ngIf="amAccountOwner && account.status === 'active'" class="form-group row">-->
+<!--    <label for="deactivateAccount" class="col-sm-2 col-form-label font-weight-bold"></label>-->
+<!--    <div class="col-sm-5">-->
+<!--      <input type="text" readonly class="form-control-plaintext" id="deactivateAccount" value="Deactivate Account">-->
+<!--    </div>-->
+<!--    <div class="col-sm-5">-->
+<!--      <button mat-button color="warn" (click)="openConfirmationModal(template)">-->
+<!--        Deactivate-->
+<!--      </button>-->
 
-  <div *ngIf="account.status === 'inactive'" class="form-group row">
-    <label for="deactivateAccount" class="col-sm-2 col-form-label font-weight-bold"></label>
-    <div class="col-sm-5">
-      <input type="text" readonly class="form-control-plaintext" id="activateAccount" value="Activate Account">
-    </div>
-    <div class="col-sm-5">
-      <button type="button" class="btn btn-info" (click)="openConfirmationModal(template)">
-        Activate
-      </button>
-      <br><br>
-      <ng-template #template>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-activate-title">Account Activation</h4>
-        </div>
-        <div class="modal-body">
-          <p>
-            <strong>Are you sure you want to Activate <span class="text-primary">"{{account.name}}"</span>?</strong>
-          </p>
-          <p>Document uploads to this account will be resumed.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" (click)="confirmAccountActivation()">Yes</button>
-          <button type="button" class="btn btn-danger" (click)="declineConfirmationModal()">No</button>
-        </div>
-      </ng-template>
-    </div>
-  </div>
+<!--      <br><br>-->
+<!--      <ng-template #template>-->
+<!--        <div class="modal-header">-->
+<!--          <h4 class="modal-title" id="modal-deactivate-title">Account Deactivation</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <p>-->
+<!--            <strong>Are you sure you want to deactivate <span class="text-primary">"{{account.name}}"</span>?</strong>-->
+<!--          </p>-->
+<!--          <p>Document uploads to this account will be suspended.</p>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button mat-button color="warn" (click)="confirmAccountDeactivation()">Yes</button>-->
+<!--          <button mat-button (click)="declineConfirmationModal()">No</button>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div *ngIf="amAccountOwner && account.status === 'inactive'" class="form-group row">-->
+<!--    <label for="deactivateAccount" class="col-sm-2 col-form-label font-weight-bold"></label>-->
+<!--    <div class="col-sm-5">-->
+<!--      <input type="text" readonly class="form-control-plaintext" id="activateAccount" value="Activate Account">-->
+<!--    </div>-->
+<!--    <div class="col-sm-5">-->
+<!--      <button mat-button color="primary" (click)="openConfirmationModal(template)">-->
+<!--        Activate-->
+<!--      </button>-->
+<!--      <br><br>-->
+<!--      <ng-template #template>-->
+<!--        <div class="modal-header">-->
+<!--          <h4 class="modal-title" id="modal-activate-title">Account Activation</h4>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <p>-->
+<!--            <strong>Are you sure you want to Activate <span class="text-primary">"{{account.name}}"</span>?</strong>-->
+<!--          </p>-->
+<!--          <p>Document uploads to this account will be resumed.</p>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button mat-button color="primary" (click)="confirmAccountActivation()">Yes</button>-->
+<!--          <button mat-button (click)="declineConfirmationModal()">No</button>-->
+<!--        </div>-->
+<!--      </ng-template>-->
+<!--    </div>-->
+<!--  </div>-->
 </form>

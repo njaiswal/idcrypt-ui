@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import Auth from '@aws-amplify/auth';
 import {API} from 'aws-amplify';
-import {NewAccount, Status} from '../page-content/model/account.model';
+import {NewAccount, NewRepo, Status} from '../page-content/model/account.model';
 import {environment} from '../../environments/environment';
 import {AppRequest, NewAppRequest} from '../page-content/model/request.model';
 
@@ -32,8 +32,30 @@ export class BackendService {
     });
   }
 
-  async getMyRequests(status: string) {
-    const path = '/requests/?status=' + status;
+  async createRepo(repo: NewRepo) {
+    const path = '/repos/';
+    return API.post(this.apiName, path, {
+      headers: await this.getHeaders(),
+      body: repo
+    });
+  }
+
+  async getAccountMembership(accountId: string) {
+    const path = '/account/' + accountId + '/members';
+    return API.get(this.apiName, path, {
+      headers: await this.getHeaders()
+    });
+  }
+
+  async getMyRepos() {
+    const path = '/repos/';
+    return API.get(this.apiName, path, {
+      headers: await this.getHeaders()
+    });
+  }
+
+  async getMyRequests() {
+    const path = '/requests/';
     return API.get(this.apiName, path, {
       headers: await this.getHeaders()
     });

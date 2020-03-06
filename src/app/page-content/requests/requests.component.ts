@@ -5,32 +5,47 @@ import {LoggingService} from '../../shared/logging.service';
 import {LoaderService} from '../../shared/loader.service';
 import {AuthService} from '../../user/auth.service';
 import {AppRequest} from '../model/request.model';
-import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {RequestConfirmComponent} from './request-confirm/request-confirm.component';
 import {Account} from '../model/account.model';
 import {AppStateService} from '../../shared/app-state.service';
 import {RequestStatusDetailsComponent} from './request-status-details/request-status-details.component';
 import {Router} from '@angular/router';
+import {HumanCase} from '../../shared/human-case.pipe';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {User} from '../../user/user.model';
 
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss']
+  styleUrls: ['./requests.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class RequestsComponent implements OnInit {
-  ownedAccount: Account;
+  myAccount: Account;
+  amAccountOwner: boolean;
+  loggedInUser: User;
 
-  displayedColumns: string[] = ['select', 'requestType', 'requestedOnResourceName', 'requestedByEmail', 'status', 'createdAt'];
+  columnsToDisplay: string[] = ['requestType', 'requestedOnResourceName', 'requesteeEmail', 'status', 'createdAt'];
   dataSource: MatTableDataSource<AppRequest>;
-  selection = new SelectionModel<AppRequest>(true, []);
+  expandedElement: AppRequest | null;
+
   requestCount = 0;
-  requestStatus = 'pending';
+  humanCase: HumanCase = new HumanCase();
+
+  filterInput: string;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  alertBoxes: AlertBox[] = [];
+
   alertBox: AlertBox = {
     type: AlertType.success,
     message: '',
@@ -47,20 +62,22 @@ export class RequestsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.router.url === '/archived-requests') {
-      this.requestStatus = 'archived';
-    }
-    this.appStateService.currentOwnedAccount.subscribe((account: Account) => this.ownedAccount = account);
+    this.appStateService.currentMyAccount.subscribe((account: Account) => this.myAccount = account);
+    this.appStateService.isAccountOwner.subscribe((amAccountOwner: boolean) => this.amAccountOwner = amAccountOwner);
+    this.loggedInUser = this.authService.getLoggedInUser();
+
+
     this.refreshRequestsTable();
   }
 
   refreshRequestsTable() {
     this.loaderService.display(true);
-    this.backendService.getMyRequests(this.requestStatus)
+    this.backendService.getMyRequests()
       .then((response: AppRequest[]) => {
         this.requestCount = response.length;
         this.dataSource = new MatTableDataSource<AppRequest>(response);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }).catch(err => {
       this.alertBox = {
         type: AlertType.danger,
@@ -69,7 +86,7 @@ export class RequestsComponent implements OnInit {
       };
     }).finally(() => {
       this.loaderService.display(false);
-      this.selection.clear();
+      this.filterInput = null;
     });
   }
 
@@ -81,70 +98,43 @@ export class RequestsComponent implements OnInit {
     });
   }
 
-  openConfirmDialog(answer: string): void {
+  openConfirmDialog(answer: string, appRequest: AppRequest): void {
     const dialogRef = this.dialog.open(RequestConfirmComponent, {
       width: 'auto',
       position: {top: '5%'},
-      data: {selected: this.selection.selected, action: answer}
+      data: {selected: appRequest, action: answer}
     });
 
-    dialogRef.afterClosed().subscribe((result: { selected: AppRequest[], action: string }) => {
+    dialogRef.afterClosed().subscribe((result: { selected: AppRequest, action: string }) => {
       if (result != null) {
-        // For each selected request do a change status call
-        result.selected.forEach(row => {
-          this.loaderService.display(true);
+        this.loaderService.display(true);
 
-          this.backendService.changeRequestStatus(row, result.action)
-            .then((response: AppRequest) => {
-              this.alertBoxes.push({
-                type: AlertType.success,
-                message: response.requestType + ' for ' + response.requesteeEmail + ' successfully marked as ' + response.status,
-                display: true
-              });
-            })
-            .catch(err => {
-              this.alertBoxes.push({
-                type: AlertType.danger,
-                display: true,
-                message: row.requestType + ' for ' + row.requesteeEmail + ': ' + err.response.data.message
-              });
-            })
-            .finally(() => {
-              // This can be problematic that we reset selection on every requests completion
-              // See if this causes issues when there are large number of selected requests.
-              this.refreshRequestsTable();
-              this.selection.clear();
-              this.loaderService.display(false);
-            });
-        });
+        this.backendService.changeRequestStatus(result.selected, result.action)
+          .then((response: AppRequest) => {
+            this.alertBox = {
+              type: AlertType.success,
+              message: '\'' + this.humanCase.transform(response.requestType) + '\' for \'' +
+                response.requesteeEmail + '\' successfully marked as ' + response.status,
+              display: true
+            };
+          })
+          .catch(err => {
+            this.alertBox = {
+              type: AlertType.danger,
+              display: true,
+              message: result.selected.requestType + ' for ' + result.selected.requesteeEmail + ': ' + err.response.data.message
+            };
+          })
+          .finally(() => {
+            this.refreshRequestsTable();
+            this.loaderService.display(false);
+          });
       }
     });
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    if (this.dataSource == null) {
-      return false;
-    }
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: AppRequest): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.requestType + 1}`;
-  }
-
-
 }

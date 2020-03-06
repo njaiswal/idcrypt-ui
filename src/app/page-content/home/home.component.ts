@@ -8,8 +8,10 @@ import {Account, NewAccount, Status} from '../model/account.model';
 import {NewAppRequest, RequestType} from '../model/request.model';
 import {AlertBox, AlertType} from '../model/alert-box.model';
 import {MatDialog, MatTabGroup} from '@angular/material';
-import {NewAccountComponent} from './new-account/new-account.component';
 import {AppStateService} from '../../shared/app-state.service';
+import {NewAccountComponent} from './new-account/new-account.component';
+import {Feature} from '../model/feature.model';
+import {ComingSoonComponent} from '../coming-soon/coming-soon.component';
 
 
 @Component({
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit {
   };
 
   sameDomainAccounts: Account[] = [];
-  ownedAccount: Account;
+  myAccount: Account;
+  amAccountOwner: boolean;
 
   constructor(
     private backendService: BackendService,
@@ -43,16 +46,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInUser = this.authService.getLoggedInUser();
-    this.appStateService.currentOwnedAccount.subscribe((account: Account) => this.ownedAccount = account);
+    this.appStateService.currentMyAccount.subscribe((account: Account) => this.myAccount = account);
+    this.appStateService.isAccountOwner.subscribe((amAccountOwner: boolean) => this.amAccountOwner = amAccountOwner);
 
     this.loaderService.display(true);
 
     this.backendService.getMyAccounts()
       .then((response: Account[]) => {
         for (const account of response) {
-          if (account.owner === this.loggedInUser.sub) {
-            this.appStateService.setOwnedAccount(account);
+          if (account.owner === this.loggedInUser.email) {
+            this.appStateService.setMyAccount(account);
+            this.appStateService.setIAmAccountOwner(true);
             break;  // Only one owner account is expected
+          } else if (account.members.includes(this.loggedInUser.email)) {
+            this.appStateService.setMyAccount(account);
+            this.appStateService.setIAmAccountOwner(false);
           } else if (account.domain === this.loggedInUser.email.split('@')[1]) {
             this.sameDomainAccounts.push(account);
           }
@@ -76,10 +84,12 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog(): void {
+    const newAccount: NewAccount = {name: null, repo: { name: null, desc: null, retention: null}};
+
     const dialogRef = this.dialog.open(NewAccountComponent, {
       width: 'auto',
       position: {top: '5%'},
-      data: {}
+      data: newAccount
     });
 
     dialogRef.afterClosed().subscribe((result: NewAccount) => {
@@ -93,13 +103,14 @@ export class HomeComponent implements OnInit {
   onNewAccount(account) {
     this.loggingService.info('New account creation event');
     this.loaderService.display(true);
-    this.backendService.createAccount(account).then(response => {
+    this.backendService.createAccount(account).then((response: Account) => {
       this.alertBox = {
         type: AlertType.success,
         display: true,
         message: 'Account created: ' + response.name
       };
-      this.ownedAccount = response;
+      this.appStateService.setMyAccount(response);
+      this.appStateService.setIAmAccountOwner(true);
       this.loaderService.display(false);
     }).catch(err => {
       const errMessage = 'schema_errors' in err.response.data ?
@@ -151,14 +162,14 @@ export class HomeComponent implements OnInit {
 
   setAccountStatus(status: Status) {
     this.loaderService.display(true);
-    this.backendService.setMyAccountStatus(this.ownedAccount.accountId, status)
-      .then(response => {
+    this.backendService.setMyAccountStatus(this.myAccount.accountId, status)
+      .then((response: Account) => {
         this.alertBox = {
           type: AlertType.success,
           display: true,
           message: 'Account marked ' + status + '. Please check your email for further available actions.'
         };
-        this.ownedAccount = response;
+        this.appStateService.setMyAccount(response);
         this.loaderService.display(false);
       }).catch(err => {
       this.loggingService.error('Account update response: ' + JSON.stringify(err, null, 4));
@@ -179,5 +190,18 @@ export class HomeComponent implements OnInit {
 
   onDeactivateAccount() {
     this.setAccountStatus(Status.inactive);
+  }
+
+  openComingSoonDialog(feature: string, featureDesc: string[]): void {
+    const newFeature: Feature = {
+      name: feature,
+      desc: featureDesc
+    };
+
+    const dialogRef = this.dialog.open(ComingSoonComponent, {
+      width: 'auto',
+      position: {top: '5%'},
+      data: newFeature
+    });
   }
 }

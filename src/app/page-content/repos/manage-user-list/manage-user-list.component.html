@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{data.category | titlecase}} list</h1>
+<div mat-dialog-content>
+
+  <p *ngIf="data.list.length === 0">No {{data.category}} yet!</p>
+
+  <p *ngIf="data.list.length !== 0">Existing {{data.category}}.</p>
+  <mat-list *ngFor="let user of data.list" role="list" dense>
+    <mat-list-item role="listitem">
+      <button [disabled]="user === myAccount.owner || (!amAccountOwner && user!==loggedInUser.email)"
+              mat-icon-button
+              color="warn"
+              class="user-list-button"
+              [mat-dialog-close]="{action: 'remove', email: user}">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+      {{user}}
+    </mat-list-item>
+  </mat-list>
+
+  <hr>
+
+  <p *ngIf="myAccount.members.length !== 0">Add as {{data.category}}.</p>
+  <mat-list *ngFor="let user of myAccount.members" role="list" dense>
+    <mat-list-item *ngIf="!data.list.includes(user)" role="listitem">
+      <button [disabled]="!amAccountOwner && user!=loggedInUser.email"
+        mat-icon-button color="primary"
+        class="user-list-button"
+        [mat-dialog-close]="{action: 'add', email: user}">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+      {{user}}
+    </mat-list-item>
+  </mat-list>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

@@ -31,32 +31,24 @@
       <mat-nav-list *ngIf="signedIn">
         <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Home</a>
 
-        <a mat-list-item [matMenuTriggerFor]="requestsMenu">Requests</a>
-        <mat-menu #requestsMenu="matMenu">
-          <a mat-menu-item routerLink="/requests" routerLinkActive="active" (click)="onSideNavClick()">Pending</a>
-          <a mat-menu-item routerLink="/archived-requests" routerLinkActive="active" (click)="onSideNavClick()">Archived</a>
-        </mat-menu>
+        <a mat-list-item routerLink="/requests" routerLinkActive="active" (click)="onSideNavClick()">Requests</a>
 
-        <a mat-list-item [matMenuTriggerFor]="repoMenu">Repositories</a>
-        <mat-menu #repoMenu="matMenu">
-          <a mat-menu-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Repo 1</a>
-          <a mat-menu-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Repo 2</a>
-          <a mat-menu-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Repo 3</a>
-        </mat-menu>
+        <a mat-list-item routerLink="/repos" routerLinkActive="active" (click)="onSideNavClick()">Repositories</a>
 
-        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Documents</a>
+        <a mat-list-item routerLink="/docs" routerLinkActive="active" (click)="onSideNavClick()">Documents</a>
 
-        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Members</a>
+        <a mat-list-item routerLink="/members" routerLinkActive="active" (click)="onSideNavClick()">Members</a>
 
-        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Administrators</a>
+        <a mat-list-item routerLink="/admins" routerLinkActive="active" (click)="onSideNavClick()">Administrators</a>
 
-        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Reports</a>
+        <a mat-list-item routerLink="/reports" routerLinkActive="active" (click)="onSideNavClick()">Reports</a>
 
-        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Billing</a>
+        <a mat-list-item routerLink="/billing" routerLinkActive="active" (click)="onSideNavClick()">Billing</a>
 
         <a mat-list-item routerLink="/settings" routerLinkActive="active" (click)="onSideNavClick()">Settings</a>
 
-        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Support</a>
+        <a mat-list-item routerLink="/support" routerLinkActive="active" (click)="onSideNavClick()">Support</a>
+
       </mat-nav-list>
     </mat-sidenav>
 

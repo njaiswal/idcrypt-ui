@@ -2,6 +2,7 @@ export interface NewAppRequest {
   accountId: string;
   requestType: RequestType;
   requestedOnResource: string;
+  requesteeEmail?: string;
 }
 
 export interface AppRequest {
@@ -34,10 +35,10 @@ export enum RequestType {
   leaveAccount = 'leaveAccount',
   joinAsAccountAdmin = 'joinAsAccountAdmin',
   leaveAsAccountAdmin = 'leaveAsAccountAdmin',
-  joinAsApprover = 'joinAsApprover',
-  leaveAsApprover = 'leaveAsApprover',
-  joinAsRepoUser = 'joinAsRepoUser',
-  leaveAsRepoUser = 'leaveAsRepoUser'
+  joinAsRepoApprover = 'joinAsRepoApprover',
+  leaveAsRepoApprover = 'leaveAsRepoApprover',
+  grantRepoAccess = 'grantRepoAccess',
+  removeRepoAccess = 'removeRepoAccess'
 }
 
 export interface UpdateHistory {

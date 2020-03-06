@@ -1,0 +1,11 @@
+<h1 mat-dialog-title> '{{data.name}}' feature coming soon...</h1>
+<div mat-dialog-content>
+  <mat-list dense>
+    <mat-list-item *ngFor="let desc of data.desc"><mat-icon>build</mat-icon>{{desc}}</mat-list-item>
+  </mat-list>
+  <p><small>Let us know in <a mat-icon-button color="primary" href="mailto:support@idcrypt.io?Subject=Feature Request - {{data.name}}"><mat-icon>email</mat-icon></a> if you
+    would like us to prioritize this feature.</small></p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
         } else {
           this.user = authState.user.attributes;
           this.router.navigate(['/home'])
-            .finally(() => this.snav.toggle());
+            .finally(() => this.snav.toggle(true));
         }
       });
 

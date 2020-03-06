@@ -5,14 +5,20 @@ import {Account} from '../page-content/model/account.model';
 @Injectable({providedIn: 'root'})
 export class AppStateService {
 
-  private ownedAccount = new BehaviorSubject<Account>(null);
-  currentOwnedAccount = this.ownedAccount.asObservable();
+  private iAmAccountOwner = new BehaviorSubject<boolean>(null);
+  isAccountOwner = this.iAmAccountOwner.asObservable();
 
+  private myAccount = new BehaviorSubject<Account>(null);
+  currentMyAccount = this.myAccount.asObservable();
 
   constructor() {
   }
 
-  setOwnedAccount(account: Account) {
-    this.ownedAccount.next(account);
+  setIAmAccountOwner(flag: boolean) {
+    this.iAmAccountOwner.next(flag);
+  }
+
+  setMyAccount(account: Account) {
+    this.myAccount.next(account);
   }
 }

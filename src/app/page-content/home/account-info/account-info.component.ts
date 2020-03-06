@@ -12,6 +12,9 @@ export class AccountInfoComponent implements OnInit {
   @Input()
   account: Account;
 
+  @Input()
+  amAccountOwner: boolean;
+
   @Output() deactivateAccount: EventEmitter<any> = new EventEmitter();
   @Output() activateAccount: EventEmitter<any> = new EventEmitter();
 

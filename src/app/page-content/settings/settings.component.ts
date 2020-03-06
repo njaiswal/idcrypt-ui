@@ -4,6 +4,11 @@ import {LoggingService} from '../../shared/logging.service';
 import {User} from '../../user/user.model';
 import {NgForm} from '@angular/forms';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {Account} from '../model/account.model';
+import {AppStateService} from '../../shared/app-state.service';
+import {MatDialog} from '@angular/material';
+import {Feature} from '../model/feature.model';
+import {ComingSoonComponent} from '../coming-soon/coming-soon.component';
 
 @Component({
   selector: 'app-settings',
@@ -11,6 +16,9 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  myAccount: Account;
+  amAccountOwner: boolean;
+
   @ViewChild('usrForm', {static: true}) form: NgForm;
 
   user: User;
@@ -21,7 +29,15 @@ export class SettingsComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  constructor(private authService: AuthService, private loggingService: LoggingService, private modalService: BsModalService) {
+  constructor(
+    private authService: AuthService,
+    private loggingService: LoggingService,
+    private modalService: BsModalService,
+    private appStateService: AppStateService,
+    private dialog: MatDialog
+  ) {
+    this.appStateService.currentMyAccount.subscribe((account: Account) => this.myAccount = account);
+    this.appStateService.isAccountOwner.subscribe((amAccountOwner: boolean) => this.amAccountOwner = amAccountOwner);
   }
 
   ngOnInit() {
@@ -51,6 +67,19 @@ export class SettingsComponent implements OnInit {
 
   onDeleteUser() {
     this.authService.deleteUser();
+  }
+
+  openComingSoonDialog(feature: string, featureDesc: string[]): void {
+    const newFeature: Feature = {
+      name: feature,
+      desc: featureDesc
+    };
+
+    const dialogRef = this.dialog.open(ComingSoonComponent, {
+      width: 'auto',
+      position: {top: '5%'},
+      data: newFeature
+    });
   }
 
 }

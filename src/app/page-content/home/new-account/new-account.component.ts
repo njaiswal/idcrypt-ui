@@ -10,8 +10,8 @@ import {NewAccount} from '../../model/account.model';
 export class NewAccountComponent {
 
   constructor(public dialogRef: MatDialogRef<NewAccountComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: NewAccount) { }
-
+              @Inject(MAT_DIALOG_DATA) public data: NewAccount) {
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

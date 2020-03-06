@@ -1,60 +1,84 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>Requests</mat-card-title>
-    <mat-card-subtitle>{{requestStatus | titlecase}}</mat-card-subtitle>
+    <mat-card-subtitle>Manage Requests</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p class="text-center">
-      <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type" (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
-    </p>
-    <p class="text-center" *ngFor="let alert of alertBoxes">
-      <ngb-alert *ngIf="alert.display" [type]="alert.type" (close)="alert.display = false">{{alert.message}}</ngb-alert>
+      <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type"
+                 (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
     </p>
 
-    <p *ngIf="requestCount === 0">No {{requestStatus | titlecase}} requests found.</p>
-    <table *ngIf="requestCount !== 0" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <p *ngIf="requestCount === 0">No requests found.</p>
 
-      <!-- Checkbox Column -->
-      <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
-          </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)"
-                        [aria-label]="checkboxLabel(row)">
-          </mat-checkbox>
+    <mat-form-field *ngIf="requestCount !== 0">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filter Requests" [(ngModel)]="filterInput">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="status" matSortDirection="desc"
+           multiTemplateDataRows class="mat-elevation-z8">
+
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="request-element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+            <div class="request-element-details">
+              <mat-form-field class="expanded-half-width">
+                <mat-label>Requested For</mat-label>
+                <span>
+                  <input matInput disabled value="{{element.requesteeEmail}}">
+                </span>
+              </mat-form-field>
+
+              <mat-form-field class="expanded-half-width">
+                <mat-label>Requested By</mat-label>
+                <input matInput disabled value="{{element.requestorEmail}}">
+              </mat-form-field>
+
+              <div class="expanded-full-width">
+                <button *ngIf="amAccountOwner && element.status === 'pending'" mat-button color="warn"
+                        (click)="openConfirmDialog('denied', element)"> Deny
+                </button>
+                <button *ngIf="amAccountOwner && element.status === 'pending'" mat-button color="primary"
+                        (click)="openConfirmDialog('approved', element)">Approve
+                </button>
+                <button *ngIf="element.requestorEmail === loggedInUser.email && element.status === 'pending'" mat-button
+                        color="warn"
+                        (click)="openConfirmDialog('cancelled', element)">Cancel Request
+                </button>
+              </div>
+            </div>
+          </div>
         </td>
       </ng-container>
 
       <!-- requestType Column -->
       <ng-container matColumnDef="requestType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Type </th>
-        <td mat-cell *matCellDef="let element"> {{element.requestType | humancase}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Type</th>
+        <td mat-cell *matCellDef="let element"><small>{{element.requestType | humancase}}</small></td>
       </ng-container>
 
       <!-- requestedOnResourceName Column -->
       <ng-container matColumnDef="requestedOnResourceName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource </th>
-        <td mat-cell *matCellDef="let element"> {{element.requestedOnResourceName}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource</th>
+        <td mat-cell *matCellDef="let element"><small>{{element.requestedOnResourceName}}</small></td>
       </ng-container>
 
       <!-- requestee Column -->
-      <ng-container matColumnDef="requestedByEmail">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Requested By </th>
-        <td mat-cell *matCellDef="let element"> {{element.requesteeEmail}} </td>
+      <ng-container matColumnDef="requesteeEmail">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Requested For</th>
+        <td mat-cell *matCellDef="let element"><small>{{element.requesteeEmail}}</small></td>
       </ng-container>
 
       <!-- status Column -->
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
         <td mat-cell *matCellDef="let element">
-          <button  mat-button color="primary"(click)="openUpdateHistoryDialog(element)">
+          <button mat-button color="primary" (click)="openUpdateHistoryDialog(element)">
             {{element.status}}
           </button>
         </td>
@@ -62,21 +86,26 @@
 
       <!-- createdAt Column -->
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On </th>
-        <td mat-cell *matCellDef="let element"> {{element.createdAt | toDateObj | date}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created On</th>
+        <td mat-cell *matCellDef="let element"><small>{{element.createdAt | toDateObj | date}}</small></td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-          (click)="selection.toggle(row)">
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="request-element-row"
+          [class.request-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="request-detail-row"></tr>
 
     </table>
 
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
     <div class="request-action-button-row">
-      <button mat-icon-button aria-label="refresh" (click)="refreshRequestsTable()"><mat-icon>refresh</mat-icon></button>
-      <button *ngIf="ownedAccount != null && requestStatus !== 'archived'" mat-button color="warn" (click)="openConfirmDialog('denied')" [disabled]="selection.selected.length == 0">Deny</button>
-      <button *ngIf="ownedAccount != null && requestStatus !== 'archived'" mat-button color="primary" (click)="openConfirmDialog('approved')" [disabled]="selection.selected.length == 0">Approve</button>
-      <button *ngIf="ownedAccount == null && requestStatus !== 'archived'" mat-button color="warn" (click)="openConfirmDialog('cancelled')" [disabled]="selection.selected.length == 0">Cancel Request</button>
+      <button mat-icon-button aria-label="refresh" (click)="refreshRequestsTable()">
+        <mat-icon>refresh</mat-icon>
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

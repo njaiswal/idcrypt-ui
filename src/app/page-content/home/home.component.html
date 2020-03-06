@@ -9,19 +9,18 @@
                      (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
         </p>
 
-    <!-- Start: User is a owner of a account   -->
-    <div *ngIf="ownedAccount !== null">
-      <app-account-info [account]="ownedAccount" (activateAccount)="onActivateAccount()"
+    <!-- Start: User is a owner or member of a account   -->
+    <div *ngIf="myAccount !== null">
+      <app-account-info [account]="myAccount" [amAccountOwner]="amAccountOwner" (activateAccount)="onActivateAccount()"
                         (deactivateAccount)="onDeactivateAccount()">
       </app-account-info>
     </div>
-    <!-- End -->
 
-    <p *ngIf="ownedAccount === null">
+    <p *ngIf="myAccount === null">
       To start using IDCrypt's service you need to associate yourself to one of the Accounts.
     </p>
 
-    <mat-tab-group *ngIf="ownedAccount === null">
+    <mat-tab-group *ngIf="myAccount === null">
       <mat-tab *ngIf="sameDomainAccounts.length > 0" label="Join an existing Account">
 
         <p class="text-info">This is the recommended option.</p>
@@ -36,7 +35,7 @@
                   {{sameDomainAccount.name}}
                 </div>
                 <div>
-                  <small>Owner {{sameDomainAccount.email}}, Created On {{sameDomainAccount.createdAt | date }}</small>
+                  <small>Owner {{sameDomainAccount.email}}, Created On {{sameDomainAccount.createdAt | toDateObj | date }}</small>
                 </div>
               </label>
             </mat-radio-button>
