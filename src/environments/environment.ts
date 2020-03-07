@@ -4,12 +4,22 @@
 
 export const environment = {
   production: false,
+  env: 'test',
   amplify: {
     Auth: {
-      identityPoolId: 'eu-west-1:727dc0ba-fd1b-4591-b036-8c7f5f0a3c9b',
+      // identityPoolId: 'eu-west-1:727dc0ba-fd1b-4591-b036-8c7f5f0a3c9b',
       region: 'eu-west-1',
       userPoolId: 'eu-west-1_R8z2Oswjr',
       userPoolWebClientId: '6bk8pp1tf9cla2rq6n9q0c9uop'
+    },
+    API: {
+      endpoints: [
+        {
+          name: 'backend',
+          endpoint: 'https://dev.api.idcrypt.io/api/v1.0'
+          // endpoint: 'http://localhost:5000/api/v1.0',
+        }
+      ]
     }
   }
 };

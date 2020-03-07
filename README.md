@@ -38,3 +38,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - url redirect rule needs to be added manually to amplify UI to make SPA routing work as expected.
   refer: https://docs.aws.amazon.com/amplify/latest/userguide/redirects.html#redirects-for-single-page-web-apps-spa
   Can this be included in amplify config so that it gets carried over to next env.
+  
+- General deployment steps are 
+
+    amplify status
+    amplify push
+    git commit 
+    git push
+    
+    Let the amplify pipeline build.
+    

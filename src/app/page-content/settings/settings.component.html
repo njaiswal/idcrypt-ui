@@ -1,12 +1,13 @@
-<div *ngIf="authSuccessMessage !== null" class="alert alert-success" role="alert">{{authSuccessMessage}}</div>
-<div *ngIf="authErrorMessage !== null" class="alert alert-danger" role="alert">{{authErrorMessage}}</div>
-<div class="card">
-  <div class="card-header">
-    Settings
-  </div>
-  <div class="card-body">
-    <p class="card-subtitle">View and Manage your settings</p>
-    <hr/>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Settings</mat-card-title>
+    <mat-card-subtitle>Manage your settings</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="authSuccessMessage !== null" class="alert alert-success" role="alert">{{authSuccessMessage}}</div>
+    <div *ngIf="authErrorMessage !== null" class="alert alert-danger" role="alert">{{authErrorMessage}}</div>
+
     <form>
       <div class="form-group row">
         <label for="staticUsername" class="col-sm-2 col-form-label font-weight-bold">Username</label>
@@ -23,13 +24,20 @@
       <div class="form-group row">
         <label for="staticAccount" class="col-sm-2 col-form-label font-weight-bold">Member of Account</label>
         <div class="col-sm-5">
-          <input type="text" readonly class="form-control-plaintext" id="staticAccount" value="email@example.com">
+          <input type="text" readonly class="form-control-plaintext" id="staticAccount" value="{{myAccount.name}}">
         </div>
         <div class="col-sm-5">
-          <button class="btn btn-warning mb-2">Leave Account</button>
+          <button mat-button color="warn"
+                  (click)="openComingSoonDialog('Leave Account', [
+                  'Account members will be able to safely leave account.',
+                  'Once they have left a account they will be able to join another account.'
+                  ])">
+            Leave Account
+          </button>
         </div>
       </div>
-      <div class="form-group row">
+      <div class=" form-group row
+          ">
         <div class="col-sm-3">
           <input [(ngModel)]="oldPassword" type="password" class="form-control" name="oldPassword" id="oldPassword"
                  placeholder="Current Password" value="">
@@ -40,9 +48,8 @@
         </div>
         <div class="col-sm-1"></div>
         <div class="col-sm-5">
-          <button (click)="onChangePassword(oldPassword, newPassword)"
-                  [disabled]="!oldPassword || !newPassword"
-                  class="btn btn-primary mb-2">Change Password
+          <button mat-button color="primary" (click)="onChangePassword(oldPassword, newPassword)"
+                  [disabled]="!oldPassword || !newPassword">Change Password
           </button>
         </div>
       </div>
@@ -53,28 +60,31 @@
           <input type="text" readonly class="form-control-plaintext" id="deleteReg" value="Delete my user profile">
         </div>
         <div class="col-sm-5">
-          <button type="button" class="btn btn-danger" (click)="openDeleteUserConfirmationModal(template)">Delete</button>
+          <button mat-button color="warn" (click)="openDeleteUserConfirmationModal(template)">Delete
+          </button>
           <br><br>
           <ng-template #template>
-              <div class="modal-header">
-                <h4 class="modal-title" id="modal-title">Profile deletion</h4>
-              </div>
-              <div class="modal-body">
-                <p>
-                  <strong>Are you sure you want to delete <span class="text-primary">"{{user.username}}"</span>'s profile?</strong>
-                </p>
-                <p>All information associated to this user profile will be permanently deleted.
-                  <span class="text-danger">This operation can not be undone.</span>
-                </p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" (click)="confirmDeleteUser()">Yes</button>
-                <button type="button" class="btn btn-danger" (click)="declineDeleteUser()">No</button>
-              </div>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-title">Profile deletion</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                <strong>Are you sure you want to delete <span class="text-primary">"{{user.username}}"</span>'s
+                  profile?</strong>
+              </p>
+              <p>All information associated to this user profile will be permanently deleted.
+                <span class="text-danger">This operation can not be undone.</span>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" (click)="confirmDeleteUser()">Yes</button>
+              <button type="button" class="btn btn-danger" (click)="declineDeleteUser()">No</button>
+            </div>
           </ng-template>
         </div>
 
       </div>
     </form>
-  </div>
-</div>
+
+  </mat-card-content>
+</mat-card>

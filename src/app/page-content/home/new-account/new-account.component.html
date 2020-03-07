@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Create New Account</h1>
+<div mat-dialog-content>
+  <form #myForm="ngForm">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Account Name</mat-label>
+      <input matInput [(ngModel)]="data.name" name="accountName" required>
+      <mat-hint>No special characters</mat-hint>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>Repository Name</mat-label>
+      <input matInput [(ngModel)]="data.repo.name" name="repoName" required>
+      <mat-hint>No special characters</mat-hint>
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>Repository Description</mat-label>
+      <input matInput [(ngModel)]="data.repo.desc" name="repoDesc">
+      <mat-hint>No special characters</mat-hint>
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field>
+      <mat-label>Retention Period</mat-label>
+      <mat-select [(ngModel)]="data.repo.retention" name="repoRetention" required>
+        <mat-option value="31">1 month</mat-option>
+        <mat-option value="92">3 months</mat-option>
+        <mat-option value="183">6 months</mat-option>
+        <mat-option value="365">1 year</mat-option>
+        <mat-option value="730">2 years</mat-option>
+        <mat-option value="1095">3 years</mat-option>
+        <mat-option value="1460">4 years</mat-option>
+        <mat-option value="1825">5 years</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="data" [disabled]="!myForm.valid">Create</button>
+</div>

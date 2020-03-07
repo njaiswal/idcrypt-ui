@@ -1,1 +1,58 @@
-<p>home works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Home</mat-card-title>
+    <mat-card-subtitle>Account Info</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+        <p class="text-center">
+          <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type"
+                     (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
+        </p>
+
+    <!-- Start: User is a owner or member of a account   -->
+    <div *ngIf="myAccount !== null">
+      <app-account-info [account]="myAccount" [amAccountOwner]="amAccountOwner" (activateAccount)="onActivateAccount()"
+                        (deactivateAccount)="onDeactivateAccount()">
+      </app-account-info>
+    </div>
+
+    <p *ngIf="myAccount === null">
+      To start using IDCrypt's service you need to associate yourself to one of the Accounts.
+    </p>
+
+    <mat-tab-group *ngIf="myAccount === null">
+      <mat-tab *ngIf="sameDomainAccounts.length > 0" label="Join an existing Account">
+
+        <p class="text-info">This is the recommended option.</p>
+          <mat-radio-group [(ngModel)]="selectedAccountId" class="account-radio-group">
+            <mat-radio-button *ngFor="let sameDomainAccount of sameDomainAccounts"
+                              name="selectedAccount"
+                              id="radio_{{sameDomainAccount.accountId}}"
+                              [value]="sameDomainAccount.accountId"
+                              class="account-radio-button">
+              <label class="form-check-label" for="radio_{{sameDomainAccount.accountId}}">
+                <div>
+                  {{sameDomainAccount.name}}
+                </div>
+                <div>
+                  <small>Owner {{sameDomainAccount.email}}, Created On {{sameDomainAccount.createdAt | toDateObj | date }}</small>
+                </div>
+              </label>
+            </mat-radio-button>
+          </mat-radio-group>
+          <button mat-button color="primary" (click)="onJoinAccount()">Join</button>
+
+
+      </mat-tab>
+      <mat-tab label="Create a new Account">
+
+        <p>Other members of your organisation will be able to join this account.</p>
+        <div>
+          <button mat-button color="primary" (click)="openDialog()">Create</button>
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+
+  </mat-card-content>
+</mat-card>

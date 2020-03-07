@@ -1,48 +1,63 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">IDCrypt</a>
-  <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <button *ngIf="signedIn" mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-  <div class="collapse navbar-collapse" id="headerbar-nav" [ngbCollapse]="isCollapsed">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li *ngIf="!signedIn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item"
-          (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
-        <a class="nav-link" routerLink="/login">Sign In</a>
-      </li>
-      <li *ngIf="signedIn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-item"
-          (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
-        <a *ngIf="user" class="nav-link" routerLink="/settings">{{user.email}}</a>
-      </li>
-      <li *ngIf="signedIn" routerLinkActive="active" class="nav-item"
-          [attr.aria-expanded]="!isCollapsed" aria-controls="headerbar-nav">
-        <a (click)="onLogout()" class="nav-link" style="cursor: pointer;">Logout</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+    <button mat-button class="app-name" routerLink="/login">IDCrypt</button>
 
-<router-outlet>
-  <span *ngIf="showLoader" class="loading"></span>
-</router-outlet>
+    <span class="filler"></span>
+
+    <span *ngIf="!signedIn" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+        <button mat-button class="nav-link" routerLink="/login">Sign In</button>
+    </span>
+
+    <a *ngIf="signedIn" mat-list-item [matMenuTriggerFor]="loggedInMenu">
+      <mat-icon>more_horiz</mat-icon>
+    </a>
+    <mat-menu #loggedInMenu="matMenu">
+      <a mat-menu-item *ngIf="user" routerLink="/settings">{{user.email}}</a>
+      <a mat-menu-item (click)="onLogout()">Logout</a>
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav
+                 [fixedInViewport]="mobileQuery.matches"
+                 fixedTopGap="56"
+                 [mode]="mobileQuery.matches ? 'over' : 'side'">
+
+      <mat-nav-list *ngIf="signedIn">
+        <a mat-list-item routerLink="/home" routerLinkActive="active" (click)="onSideNavClick()">Home</a>
+
+        <a mat-list-item routerLink="/requests" routerLinkActive="active" (click)="onSideNavClick()">Requests</a>
+
+        <a mat-list-item routerLink="/repos" routerLinkActive="active" (click)="onSideNavClick()">Repositories</a>
+
+        <a mat-list-item routerLink="/docs" routerLinkActive="active" (click)="onSideNavClick()">Documents</a>
+
+        <a mat-list-item routerLink="/members" routerLinkActive="active" (click)="onSideNavClick()">Members</a>
+
+        <a mat-list-item routerLink="/admins" routerLinkActive="active" (click)="onSideNavClick()">Administrators</a>
+
+        <a mat-list-item routerLink="/reports" routerLinkActive="active" (click)="onSideNavClick()">Reports</a>
+
+        <a mat-list-item routerLink="/billing" routerLinkActive="active" (click)="onSideNavClick()">Billing</a>
+
+        <a mat-list-item routerLink="/settings" routerLinkActive="active" (click)="onSideNavClick()">Settings</a>
+
+        <a mat-list-item routerLink="/support" routerLinkActive="active" (click)="onSideNavClick()">Support</a>
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet>
+        <span *ngIf="showLoader" class="loading-indicator">
+          <mat-spinner [diameter]="40"></mat-spinner>
+        </span>
+      </router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Request Status History</h1>
+<div mat-dialog-content>
+
+  <p *ngIf="data.updateHistory.length === 0">No recorded actions on this request yet!</p>
+  <mat-list *ngFor="let historyItem of data.updateHistory" role="list" dense>
+    <mat-list-item role="listitem">
+      <mat-icon *ngIf="historyItem.action === 'approved'">done</mat-icon>
+      <mat-icon *ngIf="historyItem.action === 'closed'">done_all</mat-icon>
+      <mat-icon *ngIf="historyItem.action === 'denied'">block</mat-icon>
+      <mat-icon *ngIf="historyItem.action === 'cancelled'">clear</mat-icon>
+      {{historyItem.action}} by {{historyItem.updatedByEmail}} on {{historyItem.updatedAt | toDateObj | date}}
+    </mat-list-item>
+  </mat-list>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

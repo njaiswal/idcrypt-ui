@@ -1,0 +1,75 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Members</mat-card-title>
+    <mat-card-subtitle>Manage Account membership</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="text-center">
+      <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type"
+                 (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
+    </p>
+
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="search">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+      <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+        <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column] }} </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="member-element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+            <div class="member-element-details">
+              <mat-form-field class="expanded-full-width">
+                <mat-label>Repository Access Role</mat-label>
+                <span>
+                  <input matInput disabled value="{{element.repoAccess.length === 0 ? 'None' : element.repoAccess}}">
+                </span>
+              </mat-form-field>
+
+              <mat-form-field class="expanded-full-width">
+                <mat-label>Repository Approver Role</mat-label>
+                <input matInput disabled value="{{element.repoApprover.length === 0 ? 'None' : element.repoApprover}}">
+              </mat-form-field>
+
+              <div class="expanded-full-width">
+                <button *ngIf="amAccountOwner" [disabled]="myAccount.owner === element.email" mat-button color="warn"
+                        (click)="openComingSoonDialog('Delete Member', ['Account Owners will be able to safely delete members.'])">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+          class="member-element-row"
+          [class.member-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="member-detail-row"></tr>
+    </table>
+
+    <div class="member-action-button-row">
+      <button mat-icon-button aria-label="refresh" (click)="refreshMembershipTable()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button *ngIf="amAccountOwner" mat-button color="primary"
+              (click)="openComingSoonDialog('Invite', ['Account Owners will be able to invite users to join IDCrypt.'])">
+        Invite
+      </button>
+    </div>
+
+  </mat-card-content>
+</mat-card>

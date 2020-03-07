@@ -1,0 +1,46 @@
+.expanded-full-width {
+  width: 100%;
+}
+
+.expanded-half-width {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+tr.repo-detail-row {
+  height: 0;
+}
+
+tr.repo-element-row:not(.repo-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.repo-element-row:not(.repo-expanded-row):active {
+  background: #efefef;
+}
+
+.repo-element-row td {
+  border-bottom-width: 0;
+}
+
+.repo-element-detail {
+  overflow: hidden;
+  display: flex;
+  background: ghostwhite;
+}
+
+.repo-element-details {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.repo-action-button-row button,
+.repo-action-button-row a {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+

@@ -1,0 +1,90 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Repositories</mat-card-title>
+    <mat-card-subtitle>Manage Repositories</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="text-center">
+      <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type"
+                 (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
+    </p>
+
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+      <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+        <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[column] }} </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+          <div class="repo-element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+            <div class="repo-element-details">
+              <mat-form-field class="expanded-half-width">
+                <mat-label>Retention Period in days</mat-label>
+                <span>
+                  <input matInput disabled value="{{element.retention}}">
+                </span>
+              </mat-form-field>
+
+              <mat-form-field class="expanded-half-width">
+                <mat-label>Created On</mat-label>
+                <input matInput disabled value="{{element.createdAt | toDateObj | date }}">
+              </mat-form-field>
+
+              <mat-form-field class="expanded-half-width">
+                <mat-label>Number of Approvers</mat-label>
+                <input matInput disabled value="{{element.approvers.length}}">
+              </mat-form-field>
+
+              <mat-form-field class="expanded-half-width">
+                <mat-label>Number of Users</mat-label>
+                <input matInput disabled value="{{element.users.length}}">
+              </mat-form-field>
+
+              <div class="expanded-full-width">
+                <button mat-button color="primary"
+                        (click)="onManageApprovers(element)"
+                        matTooltip="View, Add, Remove Repository Approvers">Manage Approvers
+                </button>
+                <button mat-button color="primary"
+                        (click)="onManageUsers(element)"
+                        matTooltip="View, Add, Remove Repository Users">Manage Users
+                </button>
+
+                <button *ngIf="amAccountOwner" mat-button color="warn"
+                        (click)="openComingSoonDialog('Freeze Repository', [
+                        'Account Owners will be able to safely freeze repositories.',
+                        'No new uploads will be possible to a frozen repository.',
+                        'Search and requests to download documents in a frozen repository will still be possible.'
+                        ])">
+                  Freeze
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+          class="repo-element-row"
+          [class.repo-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="repo-detail-row"></tr>
+    </table>
+
+    <div class="repo-action-button-row">
+      <button mat-icon-button aria-label="refresh" (click)="refreshReposTable()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+      <button *ngIf="amAccountOwner" mat-button color="primary" (click)="openCreateRepoDialog()">Create</button>
+    </div>
+
+  </mat-card-content>
+</mat-card>

@@ -1,27 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from './user/auth.service';
 import {LoggingService} from './shared/logging.service';
 import {LoaderService} from './shared/loader.service';
 import {AmplifyService} from 'aws-amplify-angular';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {MatSidenav} from '@angular/material';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   showLoader: boolean;
   isCollapsed = true;
 
   signedIn: boolean;
   user: any;
 
+  mobileQuery: MediaQueryList;
+  @ViewChild('snav', {static: false}) snav: MatSidenav;
+
+  private readonly mobileQueryListener: () => void;
+
+
   constructor(private  authService: AuthService,
               private router: Router,
               private logger: LoggingService,
               private loaderService: LoaderService,
-              private amplifyService: AmplifyService) {
+              private amplifyService: AmplifyService,
+              private changeDetectorRef: ChangeDetectorRef,
+              private media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('screen and (max-width: 600px)');
+    this.logger.info('mobileQuery' + this.mobileQuery);
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit(): void {
@@ -33,14 +47,20 @@ export class AppComponent implements OnInit {
           this.user = null;
         } else {
           this.user = authState.user.attributes;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home'])
+            .finally(() => this.snav.toggle(true));
         }
       });
 
     // Subscribe to loader service status
     this.loaderService.status.subscribe((val: boolean) => {
       this.showLoader = val;
+      this.changeDetectorRef.detectChanges();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   onLogout() {
@@ -48,4 +68,13 @@ export class AppComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
     this.authService.logout();
   }
+
+  onSideNavClick() {
+    // If we are on a mobile device close side bar on a side bar link click
+    if (this.mobileQuery.matches) {
+      this.snav.toggle();
+    }
+  }
+
+
 }
