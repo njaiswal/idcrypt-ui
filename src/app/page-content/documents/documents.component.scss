@@ -1,0 +1,37 @@
+.upload-container .mat-form-field {
+  margin-right: 8px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+}
+
+
+.upload-container .mat-list {
+  margin-top: 12px;
+}
+
+.upload-container .mat-list .mat-list-item{
+  margin-top: 8px;
+}
+
+.upload-container .mat-list .mat-list-item .mat-form-field{
+  margin-right: 8px;
+}
+
+.upload-photo-picker-preview {
+  width: 100%;
+  max-width: 45px;
+  margin-right: 8px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}

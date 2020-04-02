@@ -47,4 +47,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     git push
     
     Let the amplify pipeline build.
-    
+
+- S3 uploads bucket has a IAM policy applied to it.
+  Try fining Role: amplify-idcryptui-dev-172024-authRole    
+  This policy should be fine-tuned and public and protected parts of the policy should be removed. 

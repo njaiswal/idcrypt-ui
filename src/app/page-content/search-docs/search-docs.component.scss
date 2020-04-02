@@ -1,0 +1,93 @@
+/* Absolute Center Spinner */
+.table-loading-indicator {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.search-action-button-row button,
+.search-action-button-row a {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.search-container .mat-form-field {
+  margin-left: 8px;
+}
+
+.search-container .mat-slide-toggle {
+  margin-left: 8px;
+}
+
+/* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+}
+
+/* Structure */
+table {
+  width: 100%;
+}
+
+.expanded-full-width {
+  width: 100%;
+}
+
+.expanded-half-width {
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+tr.doc-detail-row {
+  height: 0;
+}
+
+tr.doc-element-row:not(.doc-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.doc-element-row:not(.doc-expanded-row):active {
+  background: #efefef;
+}
+
+.doc-element-row td {
+  border-bottom-width: 0;
+}
+
+.doc-element-detail {
+  overflow: hidden;
+  display: flex;
+  background: ghostwhite;
+}
+
+.doc-element-details {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.doc-action-button-row button,
+.doc-action-button-row a {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.doc-action-button-row button,
+.doc-action-button-row a {
+  margin-top: 8px;
+  margin-right: 8px;
+}

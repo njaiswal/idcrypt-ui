@@ -53,6 +53,11 @@ import { AdminsComponent } from './page-content/admins/admins.component';
 import { ReportsComponent } from './page-content/reports/reports.component';
 import { BillingComponent } from './page-content/billing/billing.component';
 import { SupportComponent } from './page-content/support/support.component';
+import { SearchDocsComponent } from './page-content/search-docs/search-docs.component';
+import { ImageCardComponent } from './page-content/documents/image-card/image-card.component';
+import { DownloadRequestComponent } from './page-content/search-docs/download-request/download-request.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ViewDocComponent } from './page-content/search-docs/view-doc/view-doc.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +83,11 @@ import { SupportComponent } from './page-content/support/support.component';
     AdminsComponent,
     ReportsComponent,
     BillingComponent,
-    SupportComponent
+    SupportComponent,
+    SearchDocsComponent,
+    ImageCardComponent,
+    DownloadRequestComponent,
+    ViewDocComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +118,8 @@ import { SupportComponent } from './page-content/support/support.component';
     MatProgressSpinnerModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSlideToggleModule
   ],
   providers: [AuthService, LoggingService, LoaderService, AmplifyService],
   bootstrap: [AppComponent],
@@ -119,7 +129,10 @@ import { SupportComponent } from './page-content/support/support.component';
     RequestStatusDetailsComponent,
     NewRepoComponent,
     ManageUserListComponent,
-    ComingSoonComponent
+    ComingSoonComponent,
+    ImageCardComponent,
+    DownloadRequestComponent,
+    ViewDocComponent
   ]
 })
 export class AppModule {

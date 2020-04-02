@@ -1,9 +1,85 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>Documents</mat-card-title>
-    <mat-card-subtitle>Manage Documents</mat-card-subtitle>
+    <mat-card-subtitle>Upload Documents</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+
+    <p class="text-center">
+      <ngb-alert *ngIf="alertBox.display" [type]="alertBox.type"
+                 (close)="alertBox.display = false">{{alertBox.message}}</ngb-alert>
+    </p>
+
+    <div class="upload-container">
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select Repository</mat-label>
+        <mat-select [(ngModel)]="selectedRepoId" name="selectedRepoId" required>
+          <mat-option *ngFor="let repo of myRepos" value="{{repo.repoId}}">{{repo.name}}</mat-option>
+        </mat-select>
+        <mat-hint>Repositories that you can access.</mat-hint>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Document holder's Name</mat-label>
+        <input [(ngModel)]="docName" name="docName" matInput required>
+      </mat-form-field>
+
+
+      <mat-list role="list">
+        <mat-list-item *ngFor="let docRow of docRows" role="listitem">
+          <button mat-icon-button color="warn" (click)="removeDocumentRow(docRow)">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Document Type</mat-label>
+            <mat-select [(ngModel)]="docRow.docType" name="{{docRow.docId + '-docType'}}"
+                        required>
+              <mat-option value="drivingLicence">Driving Licence</mat-option>
+              <mat-option value="passport">Passport</mat-option>
+              <mat-option value="nationalIdCard">National Id Card</mat-option>
+              <mat-option value="bankStatement">Bank Statement</mat-option>
+              <mat-option value="utilityBill">Utility Bill</mat-option>
+              <mat-option value="other">Other</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="amplify-photo-picker">
+            <div class="amplify-photo-picker-container">
+              <span>
+              <img
+                class="upload-photo-picker-preview"
+                src="{{docRow.photoUrl}}"
+                *ngIf="docRow.hasPhoto"
+                (error)="onPhotoError()"
+                (click)="imageClicked(docRow)"
+              />
+              </span>
+              <span>
+              <label *ngIf="!docRow.hasPhoto" class="custom-file-upload">
+                <input type="file" accept="image/*" (change)="pick($event, docRow)"/> Choose
+              </label>
+              </span>
+            </div>
+          </div>
+
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <button mat-icon-button color="primary" (click)="addDocumentRow()">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+          <button mat-button color="primary"
+                  *ngIf="photosAvailableToUpload()"
+                  (click)="uploadFiles()">
+            Upload
+          </button>
+
+        </mat-list-item>
+      </mat-list>
+
+    </div>
 
   </mat-card-content>
 </mat-card>

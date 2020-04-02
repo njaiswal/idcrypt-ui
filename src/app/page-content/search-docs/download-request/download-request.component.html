@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Request Document Access</h1>
+<div mat-dialog-content>
+  <h6>Summit a request to access document?</h6>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Document Type</mat-label>
+    <input matInput value="{{data.docType | humancase}}" disabled>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Document Holder</mat-label>
+    <input matInput value="{{data.name}}" disabled>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="data">Ok</button>
+</div>

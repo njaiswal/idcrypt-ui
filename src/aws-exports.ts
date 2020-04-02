@@ -20,7 +20,7 @@ const awsmobile = {
     responseType: 'code'
   },
   federationTarget: 'COGNITO_USER_POOLS',
-  aws_user_files_s3_bucket: 'idcryptui2c42702b48354906b27294d6a76c15a6184514-dev',
+  aws_user_files_s3_bucket: 'idcrypt-document-uploads172024-dev',
   aws_user_files_s3_bucket_region: 'eu-west-1'
 };
 

@@ -38,7 +38,8 @@ export enum RequestType {
   joinAsRepoApprover = 'joinAsRepoApprover',
   leaveAsRepoApprover = 'leaveAsRepoApprover',
   grantRepoAccess = 'grantRepoAccess',
-  removeRepoAccess = 'removeRepoAccess'
+  removeRepoAccess = 'removeRepoAccess',
+  grantDocAccess = 'grantDocAccess'
 }
 
 export interface UpdateHistory {

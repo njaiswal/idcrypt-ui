@@ -16,10 +16,15 @@ export const environment = {
       endpoints: [
         {
           name: 'backend',
-          endpoint: 'https://dev.api.idcrypt.io/api/v1.0'
-          // endpoint: 'http://localhost:5000/api/v1.0',
+          // endpoint: 'https://dev.api.idcrypt.io/api/v1.0'
+          endpoint: 'http://localhost:5000/api/v1.0',
+          // endpoint: 'http://localhost:3000/test/api/v1.0'
         }
       ]
+    },
+    Storage: {
+      bucket: 'idcrypt-document-uploads172024-dev',
+      region: 'eu-west-1'
     }
   }
 };

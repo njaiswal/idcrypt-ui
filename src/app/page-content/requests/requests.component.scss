@@ -5,16 +5,11 @@ table {
 
 .mat-form-field {
   font-size: 14px;
-  width: 100%;
+  //width: 100%;
 }
 
 /* Structure */
 table {
-  width: 100%;
-}
-
-.mat-form-field {
-  font-size: 14px;
   width: 100%;
 }
 
@@ -56,12 +51,6 @@ tr.request-element-row:not(.request-expanded-row):active {
   margin-top: 10px;
   margin-left: 10px;
   margin-bottom: 10px;
-}
-
-.request-action-button-row button,
-.request-action-button-row a {
-  margin-top: 8px;
-  margin-right: 8px;
 }
 
 .request-action-button-row button,

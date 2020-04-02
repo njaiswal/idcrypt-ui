@@ -35,7 +35,15 @@
 
         <a mat-list-item routerLink="/repos" routerLinkActive="active" (click)="onSideNavClick()">Repositories</a>
 
-        <a mat-list-item routerLink="/docs" routerLinkActive="active" (click)="onSideNavClick()">Documents</a>
+        <a mat-list-item href="#docSubmenu" data-toggle="collapse" aria-expanded="false" >Documents</a>
+        <ul class="collapse list-unstyled" id="docSubmenu">
+          <li>
+            <a mat-list-item routerLink="/docs" routerLinkActive="active" (click)="onSideNavClick()"><small>Upload</small></a>
+          </li>
+          <li>
+            <a mat-list-item routerLink="/search" routerLinkActive="active" (click)="onSideNavClick()"><small>Search</small></a>
+          </li>
+        </ul>
 
         <a mat-list-item routerLink="/members" routerLinkActive="active" (click)="onSideNavClick()">Members</a>
 

@@ -14,6 +14,7 @@ import {AdminsComponent} from './page-content/admins/admins.component';
 import {ReportsComponent} from './page-content/reports/reports.component';
 import {BillingComponent} from './page-content/billing/billing.component';
 import {SupportComponent} from './page-content/support/support.component';
+import {SearchDocsComponent} from './page-content/search-docs/search-docs.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       {path: 'requests', component: RequestsComponent},
       {path: 'repos', component: ReposComponent},
       {path: 'docs', component: DocumentsComponent},
+      {path: 'search', component: SearchDocsComponent},
       {path: 'members', component: MembersComponent},
       {path: 'admins', component: AdminsComponent},
       {path: 'reports', component: ReportsComponent},

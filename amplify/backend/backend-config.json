@@ -66,5 +66,11 @@
 			"customAuth": true
 		}
 	},
-	"api": {}
+	"api": {},
+	"storage": {
+		"uploadBucket": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
 }

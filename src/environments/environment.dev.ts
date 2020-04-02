@@ -19,6 +19,10 @@ export const environment = {
           endpoint: 'https://dev.api.idcrypt.io/api/v1.0'
         }
       ]
+    },
+    Storage: {
+      bucket: 'idcrypt-document-uploads172024-dev',
+      region: 'eu-west-1'
     }
   }
 };
