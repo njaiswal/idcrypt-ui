@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {DocImage} from '../../model/document.model';
 import {DomSanitizer} from '@angular/platform-browser';
+import {PDFProgressData} from 'ng2-pdf-viewer';
+import {LoaderService} from '../../../shared/loader.service';
 
 @Component({
   selector: 'app-view-doc',
@@ -10,9 +12,12 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ViewDocComponent implements OnInit {
 
+  docLoaderProgressPct = 100;
+
   constructor(public dialogRef: MatDialogRef<ViewDocComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DocImage,
-              private sanitizer: DomSanitizer) {
+              private sanitizer: DomSanitizer,
+              private loaderService: LoaderService) {
   }
 
   ngOnInit() {
@@ -24,5 +29,9 @@ export class ViewDocComponent implements OnInit {
 
   getImageData() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`data:${this.data.contentType};base64, ${this.data.base64Content}`);
+  }
+
+  onPdfLoadProgress(progressData: PDFProgressData) {
+    this.docLoaderProgressPct = Math.abs(progressData.loaded / progressData.total) * 100;
   }
 }

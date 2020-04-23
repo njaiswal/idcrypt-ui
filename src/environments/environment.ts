@@ -23,7 +23,7 @@ export const environment = {
       ]
     },
     Storage: {
-      bucket: 'idcrypt-document-uploads172024-dev',
+      bucket: 'idcrypt-document-uploads172024-test',
       region: 'eu-west-1'
     }
   }

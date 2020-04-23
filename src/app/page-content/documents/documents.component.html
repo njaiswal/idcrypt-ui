@@ -23,7 +23,13 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Document holder's Name</mat-label>
-        <input [(ngModel)]="docName" name="docName" matInput required>
+        <input [formControl]="nameInputFormControl"
+               [errorStateMatcher]="alphaNumericMatcher"
+               name="docName"
+               matInput required>
+        <mat-error *ngIf="nameInputFormControl.hasError('pattern')">
+          Only alpha-numeric characters allowed.
+        </mat-error>
       </mat-form-field>
 
 
@@ -48,18 +54,28 @@
 
           <div class="amplify-photo-picker">
             <div class="amplify-photo-picker-container">
-              <span>
+              <span *ngIf="docRow.contentType && docRow.contentType.includes('image')">
               <img
                 class="upload-photo-picker-preview"
                 src="{{docRow.photoUrl}}"
                 *ngIf="docRow.hasPhoto"
                 (error)="onPhotoError()"
-                (click)="imageClicked(docRow)"
-              />
+                (click)="imageClicked(docRow)"/>
+
+              </span>
+              <span *ngIf="docRow.contentType && docRow.contentType.includes('pdf')">
+                <pdf-viewer *ngIf="docRow.hasPhoto"
+                            [src]="docRow.photoUrl"
+                            [page]="1"
+                            [zoom]="0.05"
+                            [show-all]="false"
+                            [render-text]="true"
+                            (click)="imageClicked(docRow)"
+                ></pdf-viewer>
               </span>
               <span>
               <label *ngIf="!docRow.hasPhoto" class="custom-file-upload">
-                <input type="file" accept="image/*" (change)="pick($event, docRow)"/> Choose
+                <input type="file" accept="application/pdf,image/*" (change)="pick($event, docRow)"/> Choose
               </label>
               </span>
             </div>

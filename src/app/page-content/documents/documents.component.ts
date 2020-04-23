@@ -11,6 +11,8 @@ import {AlertBox, AlertType} from '../model/alert-box.model';
 import {LoaderService} from '../../shared/loader.service';
 import {Doc, DocType, NewDoc} from '../model/document.model';
 import {ImageCardComponent} from './image-card/image-card.component';
+import {FormControl, Validators} from '@angular/forms';
+import {MyErrorStateMatcher} from '../../shared/my-error-state-matcher';
 
 
 @Component({
@@ -20,7 +22,6 @@ import {ImageCardComponent} from './image-card/image-card.component';
 })
 export class DocumentsComponent implements OnInit {
 
-  docName: string;
   hasPhoto = false;
   uploading = false;
 
@@ -39,6 +40,12 @@ export class DocumentsComponent implements OnInit {
     message: '',
     display: false
   };
+
+  nameInputFormControl = new FormControl('', [
+    Validators.pattern('^[a-zA-Z ]+$')
+  ]);
+
+  alphaNumericMatcher = new MyErrorStateMatcher();
 
   constructor(private dialog: MatDialog,
               private amplifyService: AmplifyService,
@@ -89,7 +96,7 @@ export class DocumentsComponent implements OnInit {
     }
 
     // Make sure customer name was entered
-    if (this.docName === null || this.docName === undefined) {
+    if (!this.nameInputFormControl.value) {
       this.alertBox = {
         type: AlertType.danger,
         display: true,
@@ -101,7 +108,7 @@ export class DocumentsComponent implements OnInit {
     const newDoc: NewDoc = {
       accountId: this.myAccount.accountId,
       repoId: this.selectedRepoId,
-      name: this.docName
+      name: this.nameInputFormControl.value
     };
 
     // Create a placeholder doc in backend
@@ -142,12 +149,11 @@ export class DocumentsComponent implements OnInit {
       return;
     }
 
+    docRow.imageFile = file;
     docRow.contentType = file.type;
 
-    // Create a placeholder doc in backend
     this.loaderService.display(true);
     // Now process the uploaded file
-    docRow.imageFile = file;
     const thatRow = docRow;
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent) => {

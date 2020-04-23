@@ -15,6 +15,7 @@ import {DownloadRequestComponent} from './download-request/download-request.comp
 import {NewAppRequest, RequestType} from '../model/request.model';
 import {ViewDocComponent} from './view-doc/view-doc.component';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {MyErrorStateMatcher} from '../../shared/my-error-state-matcher';
 
 @Component({
   selector: 'app-search-docs',
@@ -22,10 +23,10 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
   styleUrls: ['./search-docs.component.scss'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('collapsed, void', style({height: '0px'})),
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
+      transition('expanded <=> void', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))])
   ],
 })
 export class SearchDocsComponent implements OnInit {
@@ -113,17 +114,13 @@ export class SearchDocsComponent implements OnInit {
       searchDoc.name = this.nameInputFormControl.value;
     }
 
-    // this.loaderService.display(true);
     this.showTableLoader = true;
     this.backendService.getDocs(searchDoc)
       .then((response: Doc[]) => {
         this.docCount = response.length;
         this.dataSource = new MatTableDataSource<Doc>(response);
         this.dataSource.paginator = this.paginator;
-        // dataSource.sort broken when *ngIf is applied on table to fix flicker
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-        });
+        this.dataSource.sort = this.sort;
       }).catch(err => {
       this.alertBox = {
         type: AlertType.danger,
@@ -131,12 +128,8 @@ export class SearchDocsComponent implements OnInit {
         message: err.response.data.message
       };
     }).finally(() => {
-      // this.loaderService.display(false);
       this.showTableLoader = false;
       this.filterInput = null;
-      setTimeout(() => {
-        this.dataSource.sort = this.sort;
-      });
     });
   }
 
@@ -244,12 +237,5 @@ export class SearchDocsComponent implements OnInit {
         this.loaderService.display(false);
       }
     );
-  }
-}
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }

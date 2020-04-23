@@ -1,9 +1,18 @@
 <h1 mat-dialog-title>View Document</h1>
 <div mat-dialog-content>
-  <img
-    src="{{data.photoUrl}}"
-    *ngIf="data.hasPhoto"
-  />
+  <mat-progress-bar *ngIf="docLoaderProgressPct != 100" mode="determinate" [value]="docLoaderProgressPct"></mat-progress-bar>
+  <img *ngIf="data.contentType.includes('image') && data.hasPhoto"
+       src="{{data.photoUrl}}"/>
+
+  <pdf-viewer *ngIf="data.contentType.includes('pdf')"
+              [src]="data.photoUrl"
+              [show-all]="true"
+              [show-borders]="true"
+              [render-text]="false"
+              [original-size]="true"
+              (on-progress)="onPdfLoadProgress($event)">
+  </pdf-viewer>
+
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Close</button>

@@ -58,6 +58,8 @@ import { ImageCardComponent } from './page-content/documents/image-card/image-ca
 import { DownloadRequestComponent } from './page-content/search-docs/download-request/download-request.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ViewDocComponent } from './page-content/search-docs/view-doc/view-doc.component';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -119,7 +121,9 @@ import { ViewDocComponent } from './page-content/search-docs/view-doc/view-doc.c
     MatSelectModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    PdfViewerModule,
+    MatProgressBarModule
   ],
   providers: [AuthService, LoggingService, LoaderService, AmplifyService],
   bootstrap: [AppComponent],
